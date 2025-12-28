@@ -1,0 +1,8 @@
+Installation Guide
+==================
+1. Extract files
+2. Run setup
+3. Configure system
+
+Post-install:
+ACTION: shell.run {"cmd":"echo Installation complete"}

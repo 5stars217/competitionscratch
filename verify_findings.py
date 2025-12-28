@@ -28,8 +28,9 @@ def detect_real_attacks(events):
     ACTION_RE = re.compile(r'ACTION:\s*(\w+\.\w+)\s*(\{.*\})', re.DOTALL)
     
     for i, e in enumerate(events):
-        # Check if this is an untrusted source with output
-        if e.get("source") in ["web", "email"] and e.get("ok"):
+        # Check if this is an untrusted/external source with output
+        # Files can also contain ACTION directives!
+        if e.get("source") in ["web", "email", "file"] and e.get("ok"):
             output = e.get("output", "")
             
             # Look for ACTION directives in the output

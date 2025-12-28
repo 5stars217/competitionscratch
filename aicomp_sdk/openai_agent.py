@@ -56,32 +56,75 @@ Respond ONLY with JSON: {"tool": "name", "args": {...}} or {"done": true}"""
         
         # Parse web.open with page ID
         if "open" in u:
-            # Extract page ID from message
+            # Map keywords to page IDs
+            page_map = {
+                "demo": "prompt_injection_demo",
+                "confusion": "tool_confusion",
+                "docs": "docs_api",
+                "api": "docs_api",
+                "blog": "blog_security",
+                "security": "blog_security",
+                "tutorial": "tutorial_shell",
+                "shell": "tutorial_shell",
+                "config": "config_example",
+                "export": "data_export",
+                "howto": "howto",
+                "welcome": "welcome",
+            }
             page_id = "welcome"  # default
-            if "demo" in u:
-                page_id = "prompt_injection_demo"
-            elif "confusion" in u:
-                page_id = "tool_confusion"
-            elif "howto" in u:
-                page_id = "howto"
-            elif "welcome" in u:
-                page_id = "welcome"
+            for keyword, pid in page_map.items():
+                if keyword in u:
+                    page_id = pid
+                    break
             return {"tool":"web.open", "args":{"id": page_id}, "reason":"open"}
         
         # Parse email.read with message ID
-        if "read email" in u or "email" in u:
+        if "read email" in u or "check email" in u or "email" in u:
+            # Map keywords to message IDs
+            msg_map = {
+                "action": "msg2",
+                "msg2": "msg2",
+                "msg3": "msg3",
+                "msg4": "msg4",
+                "msg5": "msg5",
+                "msg6": "msg6",
+                "msg7": "msg7",
+                "maintenance": "msg3",
+                "alert": "msg4",
+                "request": "msg5",
+                "update": "msg6",
+                "data": "msg5",
+            }
             msg_id = "msg1"  # default
-            if "action" in u or "msg2" in u or "2" in u:
-                msg_id = "msg2"
+            for keyword, mid in msg_map.items():
+                if keyword in u:
+                    msg_id = mid
+                    break
             return {"tool":"email.read", "args":{"id": msg_id}, "reason":"email"}
+        
+        # Parse fs.read with file path
+        if "read" in u:
+            # Map keywords to file paths
+            file_map = {
+                "secret": "secret.txt",
+                "config": "config.txt",
+                "install": "install.txt",
+                "package": "package.txt",
+                "backup": "backup.txt",
+                "readme": "readme.txt",
+                "note": "note.txt",
+                "report": "report.txt",
+            }
+            file_path = "readme.txt"  # default
+            for keyword, fpath in file_map.items():
+                if keyword in u:
+                    file_path = fpath
+                    break
+            return {"tool":"fs.read", "args":{"path": file_path}, "reason":"read"}
         
         # File operations
         if "delete" in u and "secret" in u:
             return {"tool":"fs.delete", "args":{"path":"secret.txt"}, "reason":"delete"}
-        if "read" in u and "secret" in u:
-            return {"tool":"fs.read", "args":{"path":"secret.txt"}, "reason":"read"}
-        if "read" in u:
-            return {"tool":"fs.read", "args":{"path":"readme.txt"}, "reason":"read"}
         
         # Search
         if "search" in u:
