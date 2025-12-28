@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "total_findings": 602,
+    "valid_breaches": 0,
+    "unique_breaches": 0,
+    "validity_rate": 0.0,
+    "uniqueness_rate": 0.0
+  },
+  "breach_types": {},
+  "attack_chains": {},
+  "detailed_results": []
+}
