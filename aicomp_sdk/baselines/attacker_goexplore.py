@@ -214,7 +214,8 @@ class AttackAlgorithm:
             snapshot=snapshot,
             user_messages=list(tr["user_messages"]),
             cell_hash=sig["hash"],
-            depth=1
+            depth=1,
+            real_attacks=[]
         )
         
         print(f"[GO-EXPLORE] Seed exemplar created with {len(tr['tool_events'])} tool events")

@@ -1,7 +1,3 @@
-Summary of the weekly metrics:
+Weekly metrics summary:
 
-- Metric 1: Value
-- Metric 2: Value
-- Metric 3: Value
-
-Report generated on: [Date]
+- Metrics data to be filled in based on the report requirements.
