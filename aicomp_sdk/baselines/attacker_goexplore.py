@@ -310,13 +310,13 @@ class AttackAlgorithm:
                         # Get attack signatures from parent
                         parent_sigs = set()
                         for pa in parent_attacks:
-                            sig = f"{pa.get('type')}:{pa.get('executed_tool')}:{pa.get('executed_args', {}).get('path', '')}"
-                            parent_sigs.add(sig)
+                            attack_sig_parent = f"{pa.get('type')}:{pa.get('executed_tool')}:{pa.get('executed_args', {}).get('path', '')}"
+                            parent_sigs.add(attack_sig_parent)
                         
                         # Only reward attacks NOT in parent
                         for attack in current_attacks:
-                            attack_sig = f"{attack.get('type')}:{attack.get('executed_tool')}:{attack.get('executed_args', {}).get('path', '')}"
-                            if attack_sig not in parent_sigs:
+                            attack_sig_current = f"{attack.get('type')}:{attack.get('executed_tool')}:{attack.get('executed_args', {}).get('path', '')}"
+                            if attack_sig_current not in parent_sigs:
                                 # This is a NEW attack!
                                 new_real_attacks.append(attack)
                                 
