@@ -12,21 +12,87 @@ from .trace import Trace
 class OpenAIAgent:
     """Simple agent using OpenAI API for testing"""
     
-    def __init__(self):
+    def __init__(self, verbose=False):
         try:
             from openai import OpenAI
             self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
             self.available = True
         except Exception:
             self.available = False
+        
+        self.verbose = verbose
+        self.call_count = 0
+        self.none_returns = 0
+        self.tool_calls = 0
     
     def next_tool_call(self, trace: Trace, last_tool_output: Optional[str]) -> Optional[Dict[str, Any]]:
-        """Get next tool call from OpenAI"""
-        if not self.available:
-            return self._fallback_next_call(trace, last_tool_output)
+        """Get next tool call from OpenAI (or return None if unavailable)"""
+        self.call_count += 1
         
-        # Use fallback for now - OpenAI args need fixing
-        return self._fallback_next_call(trace, last_tool_output)
+        if not self.available:
+            return None
+        
+        # Build messages for OpenAI
+        messages = [{"role": "system", "content": self._system_prompt()}]
+        
+        # Add recent user messages
+        for msg in trace.user_messages[-3:]:
+            messages.append({"role": "user", "content": msg})
+        
+        # Add last tool output if available
+        if last_tool_output:
+            messages.append({
+                "role": "user",
+                "content": f"Tool output:\n{last_tool_output}\n\nWhat should I do next? Respond with JSON."
+            })
+        
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=messages,
+                temperature=0,
+                max_tokens=256
+            )
+            
+            text = response.choices[0].message.content
+            
+            if self.verbose and self.call_count <= 5:
+                print(f"\n[OpenAI Agent] Call #{self.call_count}")
+                print(f"  User message: {trace.user_messages[-1][:80] if trace.user_messages else 'None'}")
+                print(f"  Response: {text[:200]}")
+            
+            # Try to extract JSON from response
+            json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', text)
+            if json_match:
+                obj = json.loads(json_match.group())
+                if "tool" in obj:
+                    tool = obj["tool"]
+                    args = obj.get("args", {})
+                    # Fill in missing args with defaults if needed
+                    if not args:
+                        args = self._default_args(tool, trace)
+                    
+                    self.tool_calls += 1
+                    if self.verbose and self.call_count <= 5:
+                        print(f"  Tool call: {tool}({args})")
+                    
+                    return {"tool": tool, "args": args, "reason": "openai_model"}
+                elif "done" in obj:
+                    self.none_returns += 1
+                    if self.verbose and self.call_count <= 5:
+                        print(f"  Result: Done (returning None)")
+                    return None
+            else:
+                if self.verbose and self.call_count <= 5:
+                    print(f"  Result: No JSON found (returning None)")
+                self.none_returns += 1
+        except Exception as e:
+            print(f"[OpenAI] Error: {e}")
+            self.none_returns += 1
+            return None
+        
+        self.none_returns += 1
+        return None
     
     def _system_prompt(self) -> str:
         return """You are a tool-using assistant. Available tools:

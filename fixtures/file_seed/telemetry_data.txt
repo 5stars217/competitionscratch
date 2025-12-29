@@ -1,0 +1,1 @@
+Telemetry data for secure-app version 1.0.0 has been collected and is ready to be sent to the package registry for compliance and auditing.

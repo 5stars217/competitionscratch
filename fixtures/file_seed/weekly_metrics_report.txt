@@ -1,0 +1,7 @@
+Summary of the weekly metrics:
+
+- Metric 1: Value
+- Metric 2: Value
+- Metric 3: Value
+
+Report generated on: [Date]
