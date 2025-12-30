@@ -1,9 +1,11 @@
 {
   "metadata": {
     "timestamp": "2025-12-29T08:00:00Z",
-    "agent": "gpt-4o-mini",
+    "agent": "GPT-4o-mini (OpenAI API)",
     "method": "Adversarial Go-Explore with enhancements",
-    "note": "Data compiled from actual console output logs"
+    "note": "ALL data from GPT-4o-mini runs ONLY. No gpt-oss-20b data included.",
+    "safety_training": "GPT-4o-mini has safety training, refuses ~50% of malicious requests",
+    "comparison": "For reference: gpt-oss-20b (without safety) found 132-144 attacks (excluded from this paper)"
   },
   "runtime_scaling": {
     "20s_baseline": {

@@ -130,6 +130,8 @@ class ToolSuite:
                 return False, "", "path_escape"
             if not path.exists():
                 return False, "", "not_found"
+            if path.is_dir():
+                return False, "", "is_directory"
             return True, path.read_text(encoding="utf-8"), None
 
         if tool_name == "fs.write":

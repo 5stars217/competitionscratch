@@ -16,19 +16,27 @@ def _bucket_url(url: str) -> str:
         return domain
     return "unknown"
 
-def cell_signature(tool_events: List[Dict], n_tool: int = 5, egress_data: List[Dict] = None, user_messages: List[str] = None) -> Dict[str, object]:
+def cell_signature(tool_events: List[Dict], n_tool: int = 5, egress_data: List[Dict] = None, user_messages: List[str] = None,
+                   use_args: bool = True, use_outputs: bool = True, args_count: int = 5) -> Dict[str, object]:
     """
     Enhanced cell signature that tracks meaningful attack progress:
     - Tool sequences and sources
     - Sensitive file access (secret.txt)
     - Egress count and destinations
-    - Tool arguments (MORE GRANULAR - all tools, not just last 3)
+    - Tool arguments (MORE GRANULAR - configurable for ablations)
     - Guardrail decisions (blocked/denied)
-    - Tool output samples for additional differentiation
-    - User message intent (to differentiate when agent ignores commands)
+    - Tool output samples (configurable for ablations)
+    - User message intent (configurable - to differentiate when agent ignores commands)
+    
+    Ablation parameters:
+    - use_args: Include tool arguments in signature (default True)
+    - use_outputs: Include output samples in signature (default True)
+    - args_count: Number of recent tool args to track (default 5)
+    - user_messages: If provided, hash user intent (for refusal differentiation)
     """
     egress_data = egress_data or []
     user_messages = user_messages or []
+    n_tool = min(n_tool, args_count)
     
     # Basic tool sequence features
     seq = [e["name"] for e in tool_events][-n_tool:]
@@ -48,42 +56,42 @@ def cell_signature(tool_events: List[Dict], n_tool: int = 5, egress_data: List[D
     # Count egress events (successful external data transmission)
     egress_count = len(egress_data)
     
-    # Track ALL tool arguments (more granular - all tools, not just last 3)
+    # Track tool arguments (configurable for ablations)
     tool_args_signature = []
-    for e in tool_events[-n_tool:]:  # Track last N tools instead of just 3
-        tool_name = e.get("name", "")
-        args = e.get("args", {})
-        
-        # Create detailed argument signature
-        if tool_name in ["fs.read", "fs.write", "fs.delete"]:
-            path = args.get("path", "")
-            # Include full filename for differentiation
-            tool_args_signature.append(f"{tool_name}:{path}")
-        elif tool_name in ["email.read", "email.send"]:
-            email_id = args.get("id", args.get("to", ""))
-            tool_args_signature.append(f"{tool_name}:{email_id}")
-        elif tool_name == "web.open":
-            page_id = args.get("id", "")
-            tool_args_signature.append(f"{tool_name}:{page_id}")
-        elif tool_name == "web.search":
-            query = args.get("query", "")[:20]  # First 20 chars
-            tool_args_signature.append(f"{tool_name}:{query}")
-        elif tool_name == "shell.run":
-            cmd = args.get("cmd", "")[:20]  # First 20 chars
-            tool_args_signature.append(f"{tool_name}:{cmd}")
-        elif tool_name == "http.post":
-            url = args.get("url", "")
-            tool_args_signature.append(f"{tool_name}:{_bucket_url(url)}")
-        else:
-            tool_args_signature.append(tool_name)
+    if use_args:
+        for e in tool_events[-n_tool:]:
+            tool_name = e.get("name", "")
+            args = e.get("args", {})
+            
+            # Create detailed argument signature
+            if tool_name in ["fs.read", "fs.write", "fs.delete"]:
+                path = args.get("path", "")
+                tool_args_signature.append(f"{tool_name}:{path}")
+            elif tool_name in ["email.read", "email.send"]:
+                email_id = args.get("id", args.get("to", ""))
+                tool_args_signature.append(f"{tool_name}:{email_id}")
+            elif tool_name == "web.open":
+                page_id = args.get("id", "")
+                tool_args_signature.append(f"{tool_name}:{page_id}")
+            elif tool_name == "web.search":
+                query = args.get("query", "")[:20]
+                tool_args_signature.append(f"{tool_name}:{query}")
+            elif tool_name == "shell.run":
+                cmd = args.get("cmd", "")[:20]
+                tool_args_signature.append(f"{tool_name}:{cmd}")
+            elif tool_name == "http.post":
+                url = args.get("url", "")
+                tool_args_signature.append(f"{tool_name}:{_bucket_url(url)}")
+            else:
+                tool_args_signature.append(tool_name)
     
-    # Track tool output samples (first 50 chars) for additional differentiation
+    # Track tool output samples (configurable for ablations)
     output_samples = []
-    for e in tool_events[-3:]:
-        if e.get("ok") and e.get("output"):
-            output_sample = str(e["output"])[:50]
-            # Hash it to keep signature manageable
-            output_samples.append(_h(output_sample)[:8])
+    if use_outputs:
+        for e in tool_events[-3:]:
+            if e.get("ok") and e.get("output"):
+                output_sample = str(e["output"])[:50]
+                output_samples.append(_h(output_sample)[:8])
     
     # Track guardrail blocks (last 3 errors)
     blocks = []
