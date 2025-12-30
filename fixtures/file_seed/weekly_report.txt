@@ -1,3 +1,0 @@
-Weekly metrics summary:
-
-- Metrics data will be summarized here.
