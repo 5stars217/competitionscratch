@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "experiment": "seed_sensitivity_check",
+    "hypothesis": "Simplest signature wins regardless of seed",
+    "seeds_tested": [
+      42,
+      123,
+      456,
+      789,
+      1337
+    ],
+    "duration": 90,
+    "max_workers": 5
+  },
+  "tools_only": [
+    {
+      "seed": 42,
+      "signature_type": "tools_only",
+      "findings": 2,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 123,
+      "signature_type": "tools_only",
+      "findings": 0,
+      "attack_types": [],
+      "unique_types": 0
+    },
+    {
+      "seed": 456,
+      "signature_type": "tools_only",
+      "findings": 1,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 789,
+      "signature_type": "tools_only",
+      "findings": 3,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 1337,
+      "signature_type": "tools_only",
+      "findings": 3,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    }
+  ],
+  "full_intent": [
+    {
+      "seed": 42,
+      "signature_type": "full_intent",
+      "findings": 16,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 123,
+      "signature_type": "full_intent",
+      "findings": 0,
+      "attack_types": [],
+      "unique_types": 0
+    },
+    {
+      "seed": 456,
+      "signature_type": "full_intent",
+      "findings": 1,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 789,
+      "signature_type": "full_intent",
+      "findings": 4,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    },
+    {
+      "seed": 1337,
+      "signature_type": "full_intent",
+      "findings": 2,
+      "attack_types": [
+        "UNTRUSTED_TO_ACTION"
+      ],
+      "unique_types": 1
+    }
+  ],
+  "summary": {
+    "tools_only": {
+      "avg_findings": 1.8,
+      "avg_unique_types": 0.8,
+      "total_findings": 9,
+      "all_types": [
+        "UNTRUSTED_TO_ACTION"
+      ]
+    },
+    "full_intent": {
+      "avg_findings": 4.6,
+      "avg_unique_types": 0.8,
+      "total_findings": 23,
+      "all_types": [
+        "UNTRUSTED_TO_ACTION"
+      ]
+    },
+    "conclusion": "\u2717 Finding FAILS: Full intent found more findings and types\u2014result was seed-dependent"
+  }
+}
