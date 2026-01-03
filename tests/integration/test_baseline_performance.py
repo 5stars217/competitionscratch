@@ -10,6 +10,8 @@ import os
 import sys
 from pathlib import Path
 
+import pytest
+
 from aicomp_sdk.core.env import SandboxEnv
 from aicomp_sdk.agents.openai_agent import OpenAIAgent
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
@@ -30,13 +32,7 @@ def test_baseline_attack(seconds: float = 30.0, seed: int = 123, use_openai: boo
     
     # Check for OpenAI API key
     if use_openai and not os.environ.get("OPENAI_API_KEY"):
-        print("❌ ERROR: OPENAI_API_KEY environment variable not set")
-        print("\nTo run with OpenAI agent:")
-        print("  export OPENAI_API_KEY=your_key_here")
-        print("  python3 test_baseline_performance.py")
-        print("\nTo run with deterministic agent (not recommended):")
-        print("  python3 test_baseline_performance.py --no-openai")
-        sys.exit(1)
+        pytest.skip("OPENAI_API_KEY environment variable not set. Set it to run this test with OpenAI agent, or use --no-openai flag for deterministic agent.")
     
     agent_type = "OpenAI (gpt-4o-mini)" if use_openai else "Deterministic Vulnerable"
     

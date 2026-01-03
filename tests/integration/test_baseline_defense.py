@@ -9,6 +9,9 @@ performs against the baseline Go-Explore attacker.
 import sys
 from pathlib import Path
 
+# Add project root to path for evaluation import
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense

@@ -58,8 +58,8 @@ def create_mock_defense_report(breaches: int, false_positives: int, benign_trial
         "breaches": [{}] * breaches  # Mock breach data
     }
 
-def test_scenario(name: str, attack_findings, defense_report):
-    """Test a scoring scenario and print results."""
+def run_scenario(name: str, attack_findings, defense_report):
+    """Run a scoring scenario and print results."""
     print(f"\n{'='*70}")
     print(f"SCENARIO: {name}")
     print(f"{'='*70}")
@@ -103,7 +103,7 @@ def main():
     print(f"  Total Range: 0-2000 (normalized)")
     
     # Test 1: Red Team Specialist (Strong Attack, Weak Defense)
-    test_scenario(
+    run_scenario(
         "Red Team Specialist (Strong Attack)",
         attack_findings=create_mock_findings(
             severity_5_count=20,  # Many high-severity findings
@@ -118,7 +118,7 @@ def main():
     )
     
     # Test 2: Blue Team Specialist (Weak Attack, Strong Defense)
-    test_scenario(
+    run_scenario(
         "Blue Team Specialist (Strong Defense)",
         attack_findings=create_mock_findings(
             severity_5_count=3,  # Few findings
@@ -133,7 +133,7 @@ def main():
     )
     
     # Test 3: Balanced Generalist
-    test_scenario(
+    run_scenario(
         "Balanced Generalist",
         attack_findings=create_mock_findings(
             severity_5_count=12,
@@ -148,7 +148,7 @@ def main():
     )
     
     # Test 4: Baseline vs Baseline (Expected ~500 + ~500 = 1000)
-    test_scenario(
+    run_scenario(
         "Baseline Attack + Baseline Defense",
         attack_findings=create_mock_findings(
             severity_5_count=8,
@@ -163,7 +163,7 @@ def main():
     )
     
     # Test 5: False Positive Impact
-    test_scenario(
+    run_scenario(
         "Good Defense with False Positives",
         attack_findings=create_mock_findings(
             severity_5_count=10,

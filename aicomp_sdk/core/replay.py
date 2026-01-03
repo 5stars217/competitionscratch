@@ -1,13 +1,13 @@
 import copy
-from typing import Dict, List
+from typing import Dict, List, Union
 from pathlib import Path
 
 from .tools import ToolSuite
 from .trace import Trace, ToolEvent
 
 class ReplayHarness:
-    def __init__(self, fixtures_dir: Path):
-        self.fixtures_dir = fixtures_dir
+    def __init__(self, fixtures_dir: Union[str, Path]):
+        self.fixtures_dir = Path(fixtures_dir) if isinstance(fixtures_dir, str) else fixtures_dir
 
     def replay(self, seed: int, user_messages: List[str], agent, guardrail) -> Dict:
         env = __import__("aicomp_sdk.env", fromlist=["SandboxEnv"]).SandboxEnv(

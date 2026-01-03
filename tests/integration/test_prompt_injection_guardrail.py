@@ -6,10 +6,10 @@ Test prompt injection guardrail against baseline attacker.
 import sys
 from pathlib import Path
 
-# Add examples_hooks_submission to path
-sys.path.insert(0, str(Path(__file__).parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
+from examples.guardrails.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 

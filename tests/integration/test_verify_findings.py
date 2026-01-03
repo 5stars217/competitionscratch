@@ -18,9 +18,12 @@ from aicomp_sdk.core.predicates import eval_predicates
 
 import sys
 # Add repository root to path
-repo_root = Path(__file__).parent.parent
+repo_root = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(repo_root))
-from examples_hooks_submission.attack_working import AttackAlgorithm
+from examples.attacks.attack_working import AttackAlgorithm
+
+# Pattern for ACTION directives in email/web output
+ACTION_RE = re.compile(r'ACTION:\s*([a-z]+\.[a-z]+)\((.*?)\)', re.IGNORECASE)
 
 def detect_real_attacks(events):
     """Detect REAL attacks with provable exploitation (natural language prompts)"""

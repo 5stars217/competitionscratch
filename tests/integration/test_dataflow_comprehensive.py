@@ -6,12 +6,13 @@ Comprehensive test for data-flow guardrail with extensive benign test suite.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_dataflow import Guardrail
+from examples.guardrails.guardrail_dataflow import Guardrail
 from aicomp_sdk.core.env import SandboxEnv
 
-FIXTURES = Path('fixtures')
+FIXTURES = Path(__file__).resolve().parent.parent.parent / 'fixtures'
 
 def comprehensive_benign_suite():
     """Extended benign test suite with 37 commands."""
@@ -80,7 +81,7 @@ def test_comprehensive_benign():
     
     # Test with persistent taint guardrail (for comparison)
     print("\n[1] Testing with PERSISTENT TAINT (baseline)...")
-    from guardrail_taint_tracking import Guardrail as PersistentGuardrail
+    from examples.guardrails.guardrail_taint_tracking import Guardrail as PersistentGuardrail
     
     guard1 = PersistentGuardrail()
     env1 = SandboxEnv(seed=999, fixtures_dir=FIXTURES, guardrail=guard1)

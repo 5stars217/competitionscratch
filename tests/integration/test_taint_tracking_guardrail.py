@@ -6,10 +6,10 @@ Test Taint Tracking Guardrail against baseline attacker.
 import sys
 from pathlib import Path
 
-# Add examples_hooks_submission to path
-sys.path.insert(0, str(Path(__file__).parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_taint_tracking import Guardrail as TaintTrackingGuardrail
+from examples.guardrails.guardrail_taint_tracking import Guardrail as TaintTrackingGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 

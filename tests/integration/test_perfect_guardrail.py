@@ -6,10 +6,10 @@ Test Perfect Guardrail (Strict Isolation Policy) against baseline attacker.
 import sys
 from pathlib import Path
 
-# Add examples_hooks_submission to path
-sys.path.insert(0, str(Path(__file__).parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_perfect import Guardrail as PerfectGuardrail
+from examples.guardrails.guardrail_perfect import Guardrail as PerfectGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 

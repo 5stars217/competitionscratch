@@ -16,8 +16,8 @@ from aicomp_sdk.guardrails.hooks_simple import attack_hook, clear_hooks
 
 # First, import baseline attack
 import sys
-sys.path.insert(0, str(Path(__file__).parent))
-from examples_hooks_submission.attack_working import AttackAlgorithm
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+from examples.attacks.attack_working import AttackAlgorithm
 
 print("="*70)
 print("LPCI HOOKS vs BASELINE COMPARISON")

@@ -6,10 +6,10 @@ Test the data-flow tracking guardrail.
 import sys
 from pathlib import Path
 
-# Add examples_hooks_submission to path
-sys.path.insert(0, str(Path(__file__).resolve().parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_dataflow import Guardrail as DataFlowGuardrail
+from examples.guardrails.guardrail_dataflow import Guardrail as DataFlowGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 

@@ -7,10 +7,10 @@ Recent Taint Window (5 ops) + Ultra-Dangerous Target Detection
 import sys
 from pathlib import Path
 
-# Add examples_hooks_submission to path
-sys.path.insert(0, str(Path(__file__).parent / "examples_hooks_submission"))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from guardrail_optimal import Guardrail as OptimalGuardrail
+from examples.guardrails.guardrail_optimal import Guardrail as OptimalGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 
