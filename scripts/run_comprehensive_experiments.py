@@ -42,10 +42,10 @@ print("EXPERIMENT 1: GENERAL EXPLORATION BASELINE")
 print("="*70)
 
 print("\nRunning general Go-Explore for 120s...")
-from aicomp_sdk.env import SandboxEnv
-from aicomp_sdk.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
 from examples_hooks_submission.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
-from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
 
 fixtures = repo_root / "fixtures"
 

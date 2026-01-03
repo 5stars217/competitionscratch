@@ -1,2 +1,2 @@
 # copy into submission.zip
-from aicomp_sdk.baselines.guardrail_rules import Guardrail
+from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail

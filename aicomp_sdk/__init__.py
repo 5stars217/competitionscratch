@@ -1,8 +1,20 @@
-from .env import SandboxEnv
-from .guardrail_base import GuardrailBase, Decision
+"""AI Competition SDK for red teaming tool-using AI agents.
+
+This package provides a comprehensive framework for:
+- Building and testing AI agent security
+- Implementing attack algorithms  
+- Creating defensive guardrails
+- Running security competitions
+"""
+
+__version__ = "1.0.0"
+
+# Core SDK
+from .core.env import SandboxEnv
+from .guardrails.base import GuardrailBase, Decision
 
 # Advanced hooks API (for power users)
-from .hooks import (
+from .guardrails.hooks import (
     HookRegistry,
     HookStage,
     HookContext,
@@ -19,7 +31,7 @@ from .hooks import (
 )
 
 # Simple hooks API (recommended for most users)
-from .hooks_simple import (
+from .guardrails.hooks_simple import (
     attack_hook,
     defense_hook,
     clear_hooks,

@@ -11,10 +11,10 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm
-from aicomp_sdk.env import SandboxEnv
-from aicomp_sdk.baselines.guardrail_allow import Guardrail as AllowGuardrail
-from aicomp_sdk.baselines.guardrail_rules import Guardrail as RulesGuardrail
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as RulesGuardrail
 
 
 def run_single_test(seed, signature_type, guardrail_type, fixtures_path):

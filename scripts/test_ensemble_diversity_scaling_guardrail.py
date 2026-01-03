@@ -15,8 +15,8 @@ from collections import defaultdict
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.env import SandboxEnv
-from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
 from examples_hooks_submission.guardrail_simple import Guardrail as SimpleGuardrail
 
 sys.path.insert(0, str(repo_root / "tests"))

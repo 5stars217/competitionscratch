@@ -16,12 +16,12 @@ from typing import Dict, Any, List, Optional
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.tools import ToolSuite
-from aicomp_sdk.trace import Trace, ToolEvent
-from aicomp_sdk.guardrail_base import GuardrailBase
-from aicomp_sdk.hooks import get_hook_registry, HookStage
-from aicomp_sdk.predicates import eval_predicates
-from aicomp_sdk.baselines.guardrail_allow import Guardrail as BaselineGuardrail
+from aicomp_sdk.core.tools import ToolSuite
+from aicomp_sdk.core.trace import Trace, ToolEvent
+from aicomp_sdk.guardrails.base import GuardrailBase
+from aicomp_sdk.guardrails.hooks import get_hook_registry, HookStage
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
 
 
 class OpenAIAgent:
@@ -156,7 +156,7 @@ class SimpleSandboxEnv:
         self.trace.add_user(user_message)
         
         # Context build hook
-        from aicomp_sdk.hooks import HookContext
+        from aicomp_sdk.guardrails.hooks import HookContext
         context_hook_ctx = HookContext(
             stage=HookStage.CONTEXT_BUILD,
             trace=self.trace,
@@ -280,8 +280,8 @@ def main():
         print("\n✓ Using OpenAI API (gpt-4o-mini)\n")
     
     # Import Go-Explore attack
-    from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm
-    from aicomp_sdk.env import SandboxEnv
+    from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+    from aicomp_sdk.core.env import SandboxEnv
     
     # Setup
     fixtures = repo_root / "fixtures"

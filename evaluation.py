@@ -8,12 +8,12 @@ import zipfile
 from pathlib import Path
 from typing import Any, Dict, List
 
-from aicomp_sdk.env import SandboxEnv
-from aicomp_sdk.baselines.guardrail_rules import Guardrail as BaselineGuardrail
-from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
-from aicomp_sdk.predicates import eval_predicates
-from aicomp_sdk.scoring import score_attack, score_defense
-from aicomp_sdk.timebox import Timebox
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.scoring import score_attack, score_defense, get_score_breakdown, score_attack_raw
+from aicomp_sdk.utils.timebox import Timebox
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
@@ -116,7 +116,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--submission_zip", type=str, required=True)
     ap.add_argument("--out", type=str, default="scores.txt")
+    ap.add_argument("--out_json", type=str, default="scores.json", help="Detailed JSON output")
     ap.add_argument("--seconds", type=float, default=3600.0)  # 1 hour
+    ap.add_argument("--verbose", action="store_true", help="Print detailed breakdown")
     args = ap.parse_args()
 
     zip_path = Path(args.submission_zip).resolve()
@@ -133,20 +135,71 @@ def main():
         raise SystemExit("Submission missing guardrail.py with Guardrail")
 
     # Offense
+    print("\n" + "="*70)
+    print("EVALUATING OFFENSE (Your Attack vs Baseline Guardrail)")
+    print("="*70)
     attack_findings = eval_attack(attack_mod.AttackAlgorithm, offense_seconds)
     attack_score = score_attack(attack_findings)
+    attack_raw = score_attack_raw(attack_findings)
 
     # Defense
+    print("\n" + "="*70)
+    print("EVALUATING DEFENSE (Baseline Attack vs Your Guardrail)")
+    print("="*70)
     defense_report = eval_defense(guard_mod.Guardrail, defense_seconds)
     defense_score = score_defense(defense_report)
 
+    # Calculate final score
     final = attack_score + defense_score
+    
+    # Get detailed breakdown
+    breakdown = get_score_breakdown(attack_findings, defense_report)
 
+    # Print results
+    print("\n" + "="*70)
+    print("FINAL RESULTS")
+    print("="*70)
+    print(f"Attack Score:  {attack_score:.2f} (raw: {attack_raw:.2f}, mode: {breakdown['attack_mode']})")
+    print(f"Defense Score: {defense_score:.2f}")
+    print(f"Final Score:   {final:.2f}")
+    print("="*70)
+    
+    if args.verbose:
+        print("\nDETAILED BREAKDOWN:")
+        print(f"  Attack Findings: {len(attack_findings)}")
+        print(f"  Unique Cells: {len(set(f.get('cell_signature', {}).get('hash') for f in attack_findings if f.get('cell_signature')))}")
+        print(f"  Defense Breaches: {defense_report.get('breach_count', 0)}")
+        print(f"  False Positives: {defense_report.get('false_positives', 0)}/{defense_report.get('benign_trials', 7)}")
+        print(f"  False Positive Rate: {defense_report.get('false_positives', 0) / max(1, defense_report.get('benign_trials', 7)):.2%}")
+
+    # Write simple score to text file (for Kaggle compatibility)
     outp = Path(args.out)
     outp.write_text(f"{final}\n", encoding="utf-8")
-    print("attack_score:", attack_score)
-    print("defense_score:", defense_score)
-    print("final:", final)
+    
+    # Write detailed results to JSON
+    detailed_results = {
+        "final_score": final,
+        "attack": {
+            "score": attack_score,
+            "score_raw": attack_raw,
+            "findings_count": len(attack_findings),
+            "unique_cells": len(set(f.get('cell_signature', {}).get('hash') for f in attack_findings if f.get('cell_signature'))),
+        },
+        "defense": {
+            "score": defense_score,
+            "breach_count": defense_report.get('breach_count', 0),
+            "false_positives": defense_report.get('false_positives', 0),
+            "benign_trials": defense_report.get('benign_trials', 7),
+            "false_positive_rate": defense_report.get('false_positives', 0) / max(1, defense_report.get('benign_trials', 7)),
+        },
+        "scoring_mode": breakdown['attack_mode'],
+    }
+    
+    json_out = Path(args.out_json)
+    json_out.write_text(json.dumps(detailed_results, indent=2), encoding="utf-8")
+    
+    print(f"\nResults written to: {outp}")
+    print(f"Detailed results written to: {json_out}")
 
 if __name__ == "__main__":
     main()

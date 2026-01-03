@@ -15,12 +15,12 @@ from typing import Dict, Any, List, Optional
 # Add current directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from aicomp_sdk.tools import ToolSuite
-from aicomp_sdk.trace import Trace, ToolEvent
-from aicomp_sdk.guardrail_base import GuardrailBase
-from aicomp_sdk.hooks import get_hook_registry, HookStage
-from aicomp_sdk.predicates import eval_predicates
-from aicomp_sdk.baselines.guardrail_allow import Guardrail as BaselineGuardrail
+from aicomp_sdk.core.tools import ToolSuite
+from aicomp_sdk.core.trace import Trace, ToolEvent
+from aicomp_sdk.guardrails.base import GuardrailBase
+from aicomp_sdk.guardrails.hooks import get_hook_registry, HookStage
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
 
 
 class OpenAIAgent:
@@ -155,7 +155,7 @@ class SimpleSandboxEnv:
         self.trace.add_user(user_message)
         
         # Context build hook
-        from aicomp_sdk.hooks import HookContext
+        from aicomp_sdk.guardrails.hooks import HookContext
         context_hook_ctx = HookContext(
             stage=HookStage.CONTEXT_BUILD,
             trace=self.trace,

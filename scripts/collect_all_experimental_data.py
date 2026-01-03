@@ -17,10 +17,10 @@ from concurrent.futures import ThreadPoolExecutor
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.env import SandboxEnv
-from aicomp_sdk.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
 from examples_hooks_submission.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
-from aicomp_sdk.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
 
 sys.path.insert(0, str(repo_root / "tests"))
 from test_verify_findings import detect_real_attacks
