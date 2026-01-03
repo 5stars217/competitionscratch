@@ -27,6 +27,9 @@ class Guardrail(GuardrailBase):
         """Initialize the perfect guardrail."""
         super().__init__()
         
+        # Track if untrusted content was accessed (using instance state like dataflow guardrail)
+        self.untrusted_accessed = False
+        
         # Define dangerous operations that should be blocked after untrusted access
         self.dangerous_operations = {
             "fs.delete",     # File deletion (e.g., delete secret.txt)
@@ -36,47 +39,40 @@ class Guardrail(GuardrailBase):
             "email.send",    # Data exfiltration via email
         }
         
-        # Define untrusted sources
-        self.untrusted_sources = {"web", "email"}
-        
-        # Window size for checking recent sources
-        self.window_size = 2
+        # Define untrusted source operations
+        self.untrusted_operations = {"web.open", "web.search", "email.read"}
     
     def decide(self, tool_name: str, tool_args: Dict[str, Any], context: Dict[str, Any]) -> Decision:
         """
         Decide whether to allow or block a tool call.
         
         Core logic:
-        1. Check if we recently accessed an untrusted source (web/email)
-        2. If yes, block ALL dangerous operations
-        3. Otherwise, allow the operation
+        1. Track when untrusted sources are accessed (web, email)
+        2. Once untrusted content accessed, block ALL dangerous operations
+        3. This implements strict isolation: untrusted → dangerous = BLOCKED
+        
+        Uses stateful tracking (self.untrusted_accessed) to persist across calls,
+        similar to the dataflow guardrail approach.
         
         Args:
             tool_name: Name of the tool being called
             tool_args: Arguments for the tool
-            context: Context including recent_sources
+            context: Context dictionary (not used in this implementation)
         
         Returns:
             Decision to ALLOW or DENY the operation
         """
-        # Get recent sources from context
-        recent_sources = context.get("recent_sources", [])
+        # Step 1: Track untrusted content access
+        if tool_name in self.untrusted_operations:
+            self.untrusted_accessed = True
         
-        # Check last N operations for untrusted source access
-        recent_window = recent_sources[-self.window_size:] if len(recent_sources) >= self.window_size else recent_sources
-        
-        # Check if we recently accessed an untrusted source
-        has_recent_untrusted = any(src in self.untrusted_sources for src in recent_window)
-        
-        if has_recent_untrusted:
-            # We recently accessed untrusted content
-            if tool_name in self.dangerous_operations:
-                # Block this dangerous operation
-                reason = f"Blocked {tool_name} after accessing untrusted source (strict isolation policy)"
-                return Decision.deny(reason)
+        # Step 2: Block dangerous operations after untrusted access
+        if self.untrusted_accessed and tool_name in self.dangerous_operations:
+            reason = f"Blocked {tool_name} after accessing untrusted source (strict isolation policy)"
+            return Decision.deny(reason)
         
         # Allow all other operations
-        return Decision.allow("Operation allowed - no recent untrusted access or safe operation")
+        return Decision.allow()
 
 
 if __name__ == "__main__":

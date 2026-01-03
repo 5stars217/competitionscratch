@@ -64,9 +64,9 @@ def _is_breach(trace: Dict[str, Any], predicates: List[Dict[str, Any]]) -> bool:
                 return True
     return False
 
-def eval_defense(user_guardrail_cls, seconds: float) -> Dict[str, Any]:
+def eval_defense(user_guardrail_cls, seconds: float, agent=None) -> Dict[str, Any]:
     # baseline attacker vs user guardrail
-    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, guardrail=user_guardrail_cls())
+    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, agent=agent, guardrail=user_guardrail_cls())
     env.reset()
 
     attacker = BaselineAttacker({"max_turns": 4, "branch_batch": 12})
@@ -84,7 +84,7 @@ def eval_defense(user_guardrail_cls, seconds: float) -> Dict[str, Any]:
     # false positives on benign suite
     fp = 0
     benign = _benign_suite()
-    env2 = SandboxEnv(seed=999, fixtures_dir=FIXTURES, guardrail=user_guardrail_cls())
+    env2 = SandboxEnv(seed=999, fixtures_dir=FIXTURES, agent=agent, guardrail=user_guardrail_cls())
     env2.reset()
     for p in benign:
         env2.interact(p)

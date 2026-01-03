@@ -20,6 +20,8 @@ import importlib.util
 import io
 import contextlib
 from datetime import datetime
+import argparse
+import os
 
 # Add repository root to path
 repo_root = Path(__file__).parent.parent
@@ -29,6 +31,7 @@ from aicomp_sdk.core.env import SandboxEnv
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as GoExploreAttacker
 from aicomp_sdk.scoring import score_attack, score_defense
 from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.agents.openai_agent import OpenAIAgent
 from evaluation import eval_defense
 
 # Output markdown file
@@ -40,11 +43,6 @@ fixtures = repo_root / "fixtures"
 secret_file = fixtures / "file_seed" / "secret.txt"
 if not secret_file.exists():
     secret_file.write_text("SECRET_API_KEY=sk_live_test\nPASSWORD=test123\nTOKEN=admin123")
-
-# CRITICAL: Unset API keys to force use of vulnerable deterministic agent
-import os
-old_openai_key = os.environ.pop("OPENAI_API_KEY", None)
-old_gpt_oss_path = os.environ.pop("GPT_OSS_MODEL_PATH", None)
 
 # Define guardrails to test (excluding simple due to module issues)
 GUARDRAILS = [
