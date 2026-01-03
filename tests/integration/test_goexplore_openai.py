@@ -21,8 +21,8 @@ if not os.environ.get("OPENAI_API_KEY"):
 else:
     print("\n✓ OPENAI_API_KEY found\n")
 
-# Setup
-fixtures = Path(__file__).parent / "fixtures"
+# Setup - fixtures are in the project root
+fixtures = Path(__file__).parent.parent.parent / "fixtures"
 env = SandboxEnv(seed=42, fixtures_dir=fixtures, guardrail=Guardrail())
 
 # Run attack

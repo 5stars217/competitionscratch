@@ -22,7 +22,8 @@ from aicomp_sdk.scoring import (
     ATTACK_ELITE_RAW,
 )
 
-FIXTURES = Path(__file__).resolve().parent / "fixtures"
+# Fixtures are in the project root, not in tests/integration/
+FIXTURES = Path(__file__).resolve().parent.parent.parent / "fixtures"
 
 def test_baseline_attack(seconds: float = 30.0, seed: int = 123, use_openai: bool = True):
     """Test baseline Go-Explore attack against baseline guardrail."""

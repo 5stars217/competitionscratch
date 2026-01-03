@@ -23,7 +23,8 @@ print("="*70)
 print("LPCI HOOKS vs BASELINE COMPARISON")
 print("="*70)
 
-fixtures = Path(__file__).parent / "fixtures"
+# Fixtures are in the project root, not in tests/integration/
+fixtures = Path(__file__).parent.parent.parent / "fixtures"
 
 # ===== TEST 1: BASELINE (NO HOOKS) =====
 print("\n[TEST 1] Running Go-Explore WITHOUT hooks...")

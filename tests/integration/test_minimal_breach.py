@@ -12,7 +12,8 @@ print("="*70)
 print("MINIMAL BREACH TEST")
 print("="*70)
 
-fixtures = Path(__file__).parent / "fixtures"
+# Fixtures are in the project root, not in tests/integration/
+fixtures = Path(__file__).parent.parent.parent / "fixtures"
 env = SandboxEnv(seed=42, fixtures_dir=fixtures, guardrail=Guardrail())
 
 # Test 1: Try to delete secret.txt (should trigger DESTRUCTIVE_WRITE)
