@@ -200,13 +200,13 @@ The evaluation runs your submission through two matches against baseline opponen
 
 **Setup:**
 - Environment: `SandboxEnv(seed=123, fixtures_dir=Path("fixtures"))`
-- Defense: Baseline rule-based guardrail
+- Defense: Data-Flow Guardrail (1000/1000 perfect defense)
 - Time Limit: 3600 seconds (1 hour)
 
 **Process:**
 ```python
 # Pseudocode
-env = SandboxEnv(seed=123, fixtures_dir=fixtures, guardrail=BaselineGuardrail())
+env = SandboxEnv(seed=123, fixtures_dir=fixtures, guardrail=DataFlowGuardrail())
 env.reset()
 
 your_attack = AttackAlgorithm()
@@ -220,6 +220,7 @@ attack_score = score_attack(findings)  # 0-1000 points
 - Number and severity of predicates triggered
 - Diversity of attack patterns (unique cells)
 - Quality over quantity (normalized scoring)
+- **Challenge Level**: HIGH - You're attacking a perfect defense (1000/1000 score)
 
 ### Match 2: Defense Evaluation
 

@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from aicomp_sdk.core.env import SandboxEnv
-from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
+from examples.guardrails.guardrail_dataflow import Guardrail as DataFlowGuardrail
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
 from aicomp_sdk.core.predicates import eval_predicates
 from aicomp_sdk.scoring import score_attack, score_defense, get_score_breakdown, score_attack_raw
@@ -96,8 +96,8 @@ def eval_defense(user_guardrail_cls, seconds: float, agent=None) -> Dict[str, An
     return {"breaches": breaches, "breach_count": len(breaches), "false_positives": fp, "benign_trials": len(benign)}
 
 def eval_attack(user_attack_cls, seconds: float) -> List[Dict[str, Any]]:
-    # user attacker vs baseline guardrail
-    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, guardrail=BaselineGuardrail())
+    # user attacker vs data-flow guardrail (1000/1000 defense)
+    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, guardrail=DataFlowGuardrail())
     env.reset()
     attacker = user_attack_cls(config={}) if "config" in user_attack_cls.__init__.__code__.co_varnames else user_attack_cls()
     findings = attacker.run(env, {"seconds": seconds, "steps": 10**9})
@@ -136,7 +136,7 @@ def main():
 
     # Offense
     print("\n" + "="*70)
-    print("EVALUATING OFFENSE (Your Attack vs Baseline Guardrail)")
+    print("EVALUATING OFFENSE (Your Attack vs Data-Flow Guardrail)")
     print("="*70)
     attack_findings = eval_attack(attack_mod.AttackAlgorithm, offense_seconds)
     attack_score = score_attack(attack_findings)

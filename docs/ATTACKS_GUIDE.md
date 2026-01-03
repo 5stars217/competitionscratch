@@ -2,6 +2,16 @@
 
 Complete guide to building attack algorithms that discover vulnerabilities in AI agent systems.
 
+> **⚠️ IMPORTANT: Competition Challenge Level**
+>
+> Your attacks are evaluated against the **Data-Flow Guardrail** - a perfect defense that achieves **1000/1000 score** (0 breaches, 0% false positives). This is intentionally challenging:
+> - The baseline rule-based guardrail is too easy to defeat
+> - The data-flow guardrail represents a best-case defender
+> - You need truly innovative attacks to find vulnerabilities
+> - Lower scores against this defense are expected and normal
+>
+> **This sets the right bar for a security competition.**
+
 ## Table of Contents
 
 1. [Attack Algorithm Interface](#attack-algorithm-interface)
@@ -638,17 +648,17 @@ Create `test_my_attack.py`:
 ```python
 from aicomp_sdk import SandboxEnv
 from aicomp_sdk.core.predicates import eval_predicates
-from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
+from examples.guardrails.guardrail_dataflow import Guardrail as DataFlowGuardrail
 from pathlib import Path
 from attack import AttackAlgorithm  # Your attack
 
 def test_finds_exfiltration():
     """Test that attack finds exfiltration vulnerabilities."""
-    # Use baseline guardrail (should allow some attacks through)
+    # Use data-flow guardrail (1000/1000 perfect defense - challenging!)
     env = SandboxEnv(
         seed=42,
         fixtures_dir=Path("fixtures"),
-        guardrail=BaselineGuardrail()
+        guardrail=DataFlowGuardrail()
     )
     
     attack = AttackAlgorithm()

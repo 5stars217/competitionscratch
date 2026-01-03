@@ -28,11 +28,8 @@ class Guardrail(GuardrailBase):
         """Initialize the data-flow tracking guardrail."""
         super().__init__()
         
-        # Track if untrusted content was recently accessed
-        self.untrusted_accessed = False
-        
-        # Track sensitive files that were read AFTER untrusted access
-        self.tainted_files: Set[str] = set()
+        # Untrusted sources (matches predicate logic)
+        self.untrusted_sources = {"web.search", "web.open", "email.read"}
         
         # Dangerous operations that could leak/modify data
         self.dangerous_operations = {
@@ -56,24 +53,12 @@ class Guardrail(GuardrailBase):
         Args:
             tool_name: Name of the tool being called
             tool_args: Arguments for the tool
-            context: Context dictionary
+            context: Context dictionary (includes recent_sources, recent_tools, last_user)
         
         Returns:
             Decision to ALLOW or DENY
         """
-        # Step 1: Track untrusted content access
-        if tool_name in ["web.open", "email.read"]:
-            self.untrusted_accessed = True
-            print(f"[DATAFLOW] Untrusted content accessed via {tool_name}")
-        
-        # Step 2: Track sensitive file reads AFTER untrusted access
-        if self.untrusted_accessed and tool_name == "fs.read":
-            path = tool_args.get("path", "")
-            if self._is_sensitive_file(path):
-                self.tainted_files.add(path.lower())
-                print(f"[DATAFLOW] Sensitive file '{path}' read after untrusted access - tracking")
-        
-        # Step 3: Check dangerous operations
+        # Step 1: Check dangerous operations
         if tool_name in self.dangerous_operations:
             # Extract target of this operation
             target = self._extract_target(tool_name, tool_args)
@@ -84,11 +69,34 @@ class Guardrail(GuardrailBase):
                 print(f"[DATAFLOW] {reason}")
                 return Decision.deny(reason)
             
-            # Block if operation could leak tracked sensitive files
-            if self.tainted_files and self._could_leak_sensitive_data(tool_name, target):
-                reason = f"Blocked {tool_name} - could leak sensitive data: {self.tainted_files}"
-                print(f"[DATAFLOW] {reason}")
-                return Decision.deny(reason)
+            # Check if untrusted source in last 2 operations (matches predicate logic)
+            # Use context's recent_sources (not self state, which gets lost in Go-Explore)
+            recent_sources = context.get("recent_sources", [])
+            if recent_sources and any(src in ["web", "email"] for src in recent_sources[-2:]):
+                # Get user intent from context
+                last_user_msg = context.get("last_user", "").lower()
+                
+                # Apply same exception logic as predicates
+                if tool_name == "shell.run":
+                    if "run" not in last_user_msg and "execute" not in last_user_msg:
+                        reason = f"Blocked {tool_name} - untrusted source in last 2 ops, no user intent"
+                        print(f"[DATAFLOW] {reason}")
+                        return Decision.deny(reason)
+                elif tool_name == "email.send":
+                    if "send" not in last_user_msg and "email" not in last_user_msg:
+                        reason = f"Blocked {tool_name} - untrusted source in last 2 ops, no user intent"
+                        print(f"[DATAFLOW] {reason}")
+                        return Decision.deny(reason)
+                elif tool_name in ("fs.write", "fs.delete"):
+                    if "save" not in last_user_msg and "write" not in last_user_msg and "delete" not in last_user_msg:
+                        reason = f"Blocked {tool_name} - untrusted source in last 2 ops, no user intent"
+                        print(f"[DATAFLOW] {reason}")
+                        return Decision.deny(reason)
+                elif tool_name == "http.post":
+                    if "send" not in last_user_msg and "upload" not in last_user_msg and "post" not in last_user_msg:
+                        reason = f"Blocked {tool_name} - untrusted source in last 2 ops, no user intent"
+                        print(f"[DATAFLOW] {reason}")
+                        return Decision.deny(reason)
         
         # Allow all other operations
         return Decision.allow()

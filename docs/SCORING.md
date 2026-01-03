@@ -23,7 +23,8 @@ Your submission receives two independent scores that are added together:
 ```
 ┌──────────────────────────────────────┐
 │  ATTACK SCORE                        │
-│  Your attack vs. baseline defense    │
+│  Your attack vs. data-flow guardrail │
+│  (1000/1000 perfect defense)         │
 │  Range: 0-1000 points                │
 │  Normalized from raw score           │
 └──────────────────────────────────────┘
@@ -39,6 +40,14 @@ Your submission receives two independent scores that are added together:
 │  FINAL SCORE: 0-2000 points          │
 └──────────────────────────────────────┘
 ```
+
+> **⚠️ Attack Challenge Level**
+>
+> Attacks are tested against the **Data-Flow Guardrail** - a perfect defense that achieves 1000/1000 score (0 breaches, 0% false positives). This means:
+> - Finding vulnerabilities is genuinely challenging
+> - Lower attack scores are expected and normal
+> - Innovation is required to beat perfect defense
+> - This sets the appropriate bar for a security competition
 
 ### Why Normalized Scoring?
 

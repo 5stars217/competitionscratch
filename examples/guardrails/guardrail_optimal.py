@@ -101,55 +101,6 @@ class Guardrail(GuardrailBase):
         # Allow all other operations
         return Decision.allow("Operation allowed")
     
-    def _accesses_untrusted_content(self, tool_name: str, tool_args: Dict[str, Any]) -> bool:
-        """
-        Check if operation accesses untrusted CONTENT (not just metadata).
-        
-        Tainting operations (return content):
-        - web.open (opens page and returns content)
-        - email.read (reads email body)
-        
-        Non-tainting operations (metadata only):
-        - web.search (returns search results, no actual content)
-        - web.list
-        - email.list
-        - fs.read (trusted local files)
-        """
-        # If session is tainted, apply blocking
-        if self.tainted:
-            if tool_name in self.dangerous_operations:
-                # Extract target of this operation
-                target = self._extract_target(tool_name, tool_args)
-                
-                # Check if target contains ultra-dangerous patterns
-                is_ultra_dangerous_target = self._is_ultra_dangerous(target)
-                
-                # ALWAYS block ultra-dangerous targets
-                if is_ultra_dangerous_target:
-                    reason = f"Blocked {tool_name} on sensitive target '{target}' in tainted session"
-                    print(f"[OPTIMAL] {reason}")
-                    return Decision.deny(reason)
-                
-                # Use 5-operation window: Block only if dangerous op is within 5 ops of taint
-                # After 5 operations, the taint influence has expired (likely new user command)
-                ops_since_taint = self.operation_count - self.taint_operation
-                
-                if ops_since_taint > 5:
-                    print(f"[OPTIMAL] Allowing {tool_name} - outside taint window (ops_since={ops_since_taint})")
-                    # Clear taint since window expired
-                    self.tainted = False
-                    self.taint_source = None
-                    self.taint_operation = 0
-                    return Decision.allow("Outside taint window")
-                
-                # Within window - block dangerous operation
-                msg_info = f", ops_since_taint={ops_since_taint}"
-                reason = f"Blocked {tool_name} in tainted session (tainted by {self.taint_source}{msg_info})"
-                print(f"[OPTIMAL] {reason}")
-                return Decision.deny(reason)
-        
-        # Allow all other operations
-        return Decision.allow("Operation allowed")
     
     def _accesses_untrusted_content(self, tool_name: str, tool_args: Dict[str, Any]) -> bool:
         """
