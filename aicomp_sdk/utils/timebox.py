@@ -1,5 +1,6 @@
 import time
 
+
 class Timebox:
     def __init__(self, seconds: float):
         self.deadline = time.monotonic() + seconds

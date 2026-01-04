@@ -10,7 +10,6 @@ Creates properly structured attack.py or guardrail.py templates with:
 
 from pathlib import Path
 
-
 ATTACK_TEMPLATE = '''"""
 AI Agent Security Competition - Attack Submission
 
@@ -289,33 +288,33 @@ class Guardrail(GuardrailBase):
 
 def run_init(args) -> int:
     """Execute init command."""
-    from aicomp_sdk.cli.main import print_success, print_error, print_info, print_warning
-    
+    from aicomp_sdk.cli.main import print_error, print_info, print_success, print_warning
+
     submission_type = args.type
-    
+
     # Determine output path
     if args.output:
         output_path = Path(args.output)
     else:
         output_path = Path(f"{submission_type}.py")
-    
+
     # Check if file exists
     if output_path.exists() and not args.force:
         print_error(f"File already exists: {output_path}")
         print_info("Use --force to overwrite")
         return 1
-    
+
     # Get template
-    if submission_type == 'attack':
+    if submission_type == "attack":
         template = ATTACK_TEMPLATE
     else:
         template = GUARDRAIL_TEMPLATE
-    
+
     # Write template
     try:
-        output_path.write_text(template, encoding='utf-8')
+        output_path.write_text(template, encoding="utf-8")
         print_success(f"Created {submission_type} template: {output_path}")
-        
+
         print()
         print_info("Next steps:")
         print(f"  1. Edit {output_path} and implement the TODO sections")
@@ -325,9 +324,9 @@ def run_init(args) -> int:
         print_info("For more help:")
         print("  - See examples in: examples/attacks/ and examples/guardrails/")
         print("  - Read the docs: docs/GETTING_STARTED.md")
-        
+
         return 0
-    
+
     except Exception as e:
         print_error(f"Failed to create template: {e}")
         return 1

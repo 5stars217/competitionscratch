@@ -5,14 +5,18 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-PRIVATE_NET_RE = re.compile(r"(^|://)(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)", re.IGNORECASE)
+PRIVATE_NET_RE = re.compile(
+    r"(^|://)(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)", re.IGNORECASE
+)
+
 
 @dataclass
 class ToolSpec:
     name: str
     side_effect: str  # READ|WRITE|EXEC|NETWORK|SHARE|AUTH
-    scope: str        # public|internal|local|secrets|external
+    scope: str  # public|internal|local|secrets|external
     schema: Dict[str, Any]
+
 
 class ToolSuite:
     """Deterministic offline tool implementations backed by fixtures."""
@@ -26,7 +30,7 @@ class ToolSuite:
         self._fs_backup = {}  # Backup of original files
         self._egress_sink: List[Dict[str, Any]] = []
         self._last_source = "user"
-        
+
         # Backup original file contents
         for fpath in self._fs_root.iterdir():
             if fpath.is_file():
@@ -34,50 +38,117 @@ class ToolSuite:
 
         self.specs: Dict[str, ToolSpec] = {
             "web.search": ToolSpec(
-                "web.search", "NETWORK", "public",
-                {"type":"object","properties":{"query":{"type":"string"}}, "required":["query"], "additionalProperties":False}
+                "web.search",
+                "NETWORK",
+                "public",
+                {
+                    "type": "object",
+                    "properties": {"query": {"type": "string"}},
+                    "required": ["query"],
+                    "additionalProperties": False,
+                },
             ),
             "web.open": ToolSpec(
-                "web.open", "NETWORK", "public",
-                {"type":"object","properties":{"id":{"type":"string"}}, "required":["id"], "additionalProperties":False}
+                "web.open",
+                "NETWORK",
+                "public",
+                {
+                    "type": "object",
+                    "properties": {"id": {"type": "string"}},
+                    "required": ["id"],
+                    "additionalProperties": False,
+                },
             ),
             "fs.read": ToolSpec(
-                "fs.read", "READ", "local",
-                {"type":"object","properties":{"path":{"type":"string"}}, "required":["path"], "additionalProperties":False}
+                "fs.read",
+                "READ",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"path": {"type": "string"}},
+                    "required": ["path"],
+                    "additionalProperties": False,
+                },
             ),
             "fs.write": ToolSpec(
-                "fs.write", "WRITE", "local",
-                {"type":"object","properties":{"path":{"type":"string"},"content":{"type":"string"}}, "required":["path","content"], "additionalProperties":False}
+                "fs.write",
+                "WRITE",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"path": {"type": "string"}, "content": {"type": "string"}},
+                    "required": ["path", "content"],
+                    "additionalProperties": False,
+                },
             ),
             "fs.delete": ToolSpec(
-                "fs.delete", "WRITE", "local",
-                {"type":"object","properties":{"path":{"type":"string"}}, "required":["path"], "additionalProperties":False}
+                "fs.delete",
+                "WRITE",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"path": {"type": "string"}},
+                    "required": ["path"],
+                    "additionalProperties": False,
+                },
             ),
             "shell.run": ToolSpec(
-                "shell.run", "EXEC", "local",
-                {"type":"object","properties":{"cmd":{"type":"string"}}, "required":["cmd"], "additionalProperties":False}
+                "shell.run",
+                "EXEC",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"cmd": {"type": "string"}},
+                    "required": ["cmd"],
+                    "additionalProperties": False,
+                },
             ),
             "email.read": ToolSpec(
-                "email.read", "READ", "local",
-                {"type":"object","properties":{"id":{"type":"string"}}, "required":["id"], "additionalProperties":False}
+                "email.read",
+                "READ",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"id": {"type": "string"}},
+                    "required": ["id"],
+                    "additionalProperties": False,
+                },
             ),
             "email.send": ToolSpec(
-                "email.send", "SHARE", "external",
-                {"type":"object","properties":{"to":{"type":"string"},"subject":{"type":"string"},"body":{"type":"string"}}, "required":["to","subject","body"], "additionalProperties":False}
+                "email.send",
+                "SHARE",
+                "external",
+                {
+                    "type": "object",
+                    "properties": {
+                        "to": {"type": "string"},
+                        "subject": {"type": "string"},
+                        "body": {"type": "string"},
+                    },
+                    "required": ["to", "subject", "body"],
+                    "additionalProperties": False,
+                },
             ),
             "http.post": ToolSpec(
-                "http.post", "SHARE", "external",
-                {"type":"object","properties":{"url":{"type":"string"},"data":{"type":"string"}}, "required":["url","data"], "additionalProperties":False}
+                "http.post",
+                "SHARE",
+                "external",
+                {
+                    "type": "object",
+                    "properties": {"url": {"type": "string"}, "data": {"type": "string"}},
+                    "required": ["url", "data"],
+                    "additionalProperties": False,
+                },
             ),
         }
 
     def reset(self, seed: int):
         self._egress_sink = []
         self._last_source = "user"
-        
+
         # Restore mail from seed
         self._mail = json.loads(json.dumps(self._mail_seed))
-        
+
         # Restore files from backup
         for fname, content in self._fs_backup.items():
             fpath = self._fs_root / fname

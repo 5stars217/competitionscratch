@@ -1,9 +1,10 @@
 import copy
-from typing import Dict, List, Union
 from pathlib import Path
+from typing import Dict, List, Union
 
 from .tools import ToolSuite
-from .trace import Trace, ToolEvent
+from .trace import ToolEvent, Trace
+
 
 class ReplayHarness:
     def __init__(self, fixtures_dir: Union[str, Path]):

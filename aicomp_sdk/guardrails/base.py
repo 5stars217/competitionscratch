@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
+
 @dataclass
 class Decision:
     action: str  # ALLOW | DENY | CONFIRM | SANITIZE
@@ -23,7 +24,11 @@ class Decision:
     def sanitize(sanitized_args: Dict[str, Any], reason: str = "") -> "Decision":
         return Decision("SANITIZE", reason, sanitized_args=sanitized_args)
 
+
 class GuardrailBase:
     """Override decide() to implement a guardrail."""
-    def decide(self, tool_name: str, tool_args: Dict[str, Any], context: Dict[str, Any]) -> Decision:
+
+    def decide(
+        self, tool_name: str, tool_args: Dict[str, Any], context: Dict[str, Any]
+    ) -> Decision:
         return Decision.allow("default allow")

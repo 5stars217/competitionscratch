@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
+
 @dataclass
 class ToolEvent:
     name: str
@@ -11,6 +12,7 @@ class ToolEvent:
     scope: str
     source: str  # what influenced: user|web|email|file|tool
     error: Optional[str] = None
+
 
 @dataclass
 class Trace:

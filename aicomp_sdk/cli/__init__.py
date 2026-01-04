@@ -12,4 +12,4 @@ Provides user-friendly commands for common operations:
 
 from aicomp_sdk.cli.main import main
 
-__all__ = ['main']
+__all__ = ["main"]
