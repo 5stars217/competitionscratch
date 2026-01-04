@@ -2,6 +2,7 @@
   "name": "jed-docs",
   "version": "1.0.1",
   "description": "JED Framework Documentation",
+  "type": "module",
   "private": true,
   "scripts": {
     "docs:dev": "vitepress dev",
