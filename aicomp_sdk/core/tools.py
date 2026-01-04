@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import shutil
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -160,10 +161,16 @@ class ToolSuite:
         # Restore mail from seed
         self._mail = json.loads(json.dumps(self._mail_seed))
 
-        # Delete any NEW files created during the episode (not in backup)
+        # Delete any NEW files/directories created during the episode (not in backup)
+        # Walk recursively and delete anything not in the original backup
         for fpath in self._fs_root.iterdir():
-            if fpath.is_file() and fpath.name not in self._fs_backup:
-                fpath.unlink()
+            if fpath.name not in self._fs_backup:
+                if fpath.is_dir():
+                    # Remove entire directory tree
+                    shutil.rmtree(fpath)
+                elif fpath.is_file():
+                    # Remove individual file
+                    fpath.unlink()
 
         # Restore files from backup
         for fname, content in self._fs_backup.items():

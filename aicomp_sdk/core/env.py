@@ -2,6 +2,7 @@ import copy
 import json
 import os
 import re
+import shutil
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -416,11 +417,20 @@ class SandboxEnv:
 
     def _snapshot_tools_state(self) -> Dict[str, Any]:
         """Snapshot ToolSuite state (egress, mail, files)."""
-        # Snapshot filesystem state
+        # Snapshot filesystem state recursively
         fs_state = {}
-        for fpath in self.tools._fs_root.iterdir():
-            if fpath.is_file():
-                fs_state[fpath.name] = fpath.read_text(encoding="utf-8")
+        
+        def _capture_tree(base_path: Path, rel_prefix: str = ""):
+            """Recursively capture all files and directories."""
+            for fpath in base_path.iterdir():
+                rel_path = rel_prefix + fpath.name
+                if fpath.is_file():
+                    fs_state[rel_path] = fpath.read_text(encoding="utf-8")
+                elif fpath.is_dir():
+                    # Recursively capture subdirectory contents
+                    _capture_tree(fpath, rel_path + "/")
+        
+        _capture_tree(self.tools._fs_root)
 
         return {
             "egress": copy.deepcopy(self.tools._egress_sink),
@@ -435,9 +445,19 @@ class SandboxEnv:
         self.tools._mail = copy.deepcopy(state["mail"])
         self.tools._last_source = state["last_source"]
 
-        # Restore filesystem
-        for fname, content in state["fs_state"].items():
-            fpath = self.tools._fs_root / fname
+        # Clear filesystem - remove all files/dirs not in original backup
+        for fpath in self.tools._fs_root.iterdir():
+            if fpath.name not in self.tools._fs_backup:
+                if fpath.is_dir():
+                    shutil.rmtree(fpath)
+                elif fpath.is_file():
+                    fpath.unlink()
+        
+        # Restore filesystem from snapshot
+        for rel_path, content in state["fs_state"].items():
+            fpath = self.tools._fs_root / rel_path
+            # Create parent directories if needed (for nested files)
+            fpath.parent.mkdir(parents=True, exist_ok=True)
             fpath.write_text(content, encoding="utf-8")
 
     def interact(self, user_message: str, max_tool_hops: int = 4) -> Dict[str, Any]:
