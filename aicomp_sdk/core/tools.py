@@ -283,7 +283,13 @@ class ToolSuite:
         if tool_name == "email.read":
             self._last_source = "email"
             mid = args["id"]
-            msg = next((m for m in self._mail["inbox"] if m["id"] == mid), None)
+            # Search all folders, not just inbox
+            msg = None
+            for folder_msgs in self._mail.values():
+                if isinstance(folder_msgs, list):
+                    msg = next((m for m in folder_msgs if m["id"] == mid), None)
+                    if msg is not None:
+                        break
             if msg is None:
                 return False, "", "not_found"
             return True, json.dumps(msg), None
