@@ -53,8 +53,8 @@ GUARDRAILS = [
     ("reference", "examples/guardrails/guardrail.py"),
 ]
 
-# Dataflow tested separately
-DATAFLOW_GUARDRAIL = ("dataflow", "examples/guardrails/guardrail_dataflow.py")
+# Optimal guardrail (baseline for attacks)
+OPTIMAL_GUARDRAIL = ("optimal", "examples/guardrails/guardrail_optimal.py")
 
 # Markdown output buffer
 md_output = []
@@ -168,21 +168,22 @@ def main():
             md_print(f"\n❌ **Error testing {name}:** {e}")
             md_print()
     
-    # Test dataflow separately with more time
+    # Test pattern guardrail separately with more time
     md_print("---")
     md_print()
-    md_print("## Phase 2: Dataflow Guardrail (Extended Testing)")
+    md_print("## Phase 2: Pattern Guardrail (Extended Testing)")
     md_print()
-    md_print("The dataflow guardrail receives extended attack time (60s) for comprehensive evaluation.")
+    md_print("The pattern guardrail receives extended attack time (60s) for comprehensive evaluation.")
     md_print()
     
     try:
-        dataflow_name, dataflow_filepath = DATAFLOW_GUARDRAIL
-        dataflow_path = repo_root / dataflow_filepath
-        dataflow_result = test_guardrail(dataflow_name, str(dataflow_path), attack_seconds=60)
-        results.append(dataflow_result)
+        pattern_guardrail = ("pattern", "examples/guardrails/guardrail_pattern.py")
+        pattern_name, pattern_filepath = pattern_guardrail
+        pattern_path = repo_root / pattern_filepath
+        pattern_result = test_guardrail(pattern_name, str(pattern_path), attack_seconds=60)
+        results.append(pattern_result)
     except Exception as e:
-        md_print(f"\n❌ **Error testing dataflow:** {e}")
+        md_print(f"\n❌ **Error testing pattern guardrail:** {e}")
         md_print()
     
     # Summary

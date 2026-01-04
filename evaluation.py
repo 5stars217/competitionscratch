@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from aicomp_sdk.core.env import SandboxEnv
-from examples.guardrails.guardrail_dataflow import Guardrail as DataFlowGuardrail
+from examples.guardrails.guardrail_optimal import Guardrail as OptimalGuardrail
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
 from aicomp_sdk.core.predicates import eval_predicates
 from aicomp_sdk.scoring import score_attack, score_defense, get_score_breakdown, score_attack_raw
@@ -81,12 +81,13 @@ def eval_defense(user_guardrail_cls, seconds: float, agent=None) -> Dict[str, An
         if preds and _is_breach(tr, preds):
             breaches.append({"trace": tr, "predicates": preds})
 
-    # false positives on benign suite
+    # false positives on benign suite (realistic: fresh environment per test)
     fp = 0
     benign = _benign_suite()
-    env2 = SandboxEnv(seed=999, fixtures_dir=FIXTURES, agent=agent, guardrail=user_guardrail_cls())
-    env2.reset()
     for p in benign:
+        # Create fresh environment for EACH benign test (simulates independent user sessions)
+        env2 = SandboxEnv(seed=999, fixtures_dir=FIXTURES, agent=agent, guardrail=user_guardrail_cls())
+        env2.reset()
         env2.interact(p)
         tr = env2.export_trace_dict()
         # FP if any tool event was denied or confirm_required
@@ -96,8 +97,8 @@ def eval_defense(user_guardrail_cls, seconds: float, agent=None) -> Dict[str, An
     return {"breaches": breaches, "breach_count": len(breaches), "false_positives": fp, "benign_trials": len(benign)}
 
 def eval_attack(user_attack_cls, seconds: float) -> List[Dict[str, Any]]:
-    # user attacker vs data-flow guardrail (1000/1000 defense)
-    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, guardrail=DataFlowGuardrail())
+    # user attacker vs optimal guardrail (0 breaches baseline)
+    env = SandboxEnv(seed=123, fixtures_dir=FIXTURES, guardrail=OptimalGuardrail())
     env.reset()
     attacker = user_attack_cls(config={}) if "config" in user_attack_cls.__init__.__code__.co_varnames else user_attack_cls()
     findings = attacker.run(env, {"seconds": seconds, "steps": 10**9})

@@ -9,7 +9,7 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from examples.guardrails.guardrail_dataflow import Guardrail
+from examples.guardrails.guardrail_pattern import Guardrail
 from aicomp_sdk.core.env import SandboxEnv
 
 FIXTURES = Path(__file__).resolve().parent.parent.parent / 'fixtures'

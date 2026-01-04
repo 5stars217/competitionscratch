@@ -27,9 +27,6 @@ class Guardrail(GuardrailBase):
         """Initialize the perfect guardrail."""
         super().__init__()
         
-        # Track if untrusted content was accessed (using instance state like dataflow guardrail)
-        self.untrusted_accessed = False
-        
         # Define dangerous operations that should be blocked after untrusted access
         self.dangerous_operations = {
             "fs.delete",     # File deletion (e.g., delete secret.txt)
@@ -47,27 +44,26 @@ class Guardrail(GuardrailBase):
         Decide whether to allow or block a tool call.
         
         Core logic:
-        1. Track when untrusted sources are accessed (web, email)
-        2. Once untrusted content accessed, block ALL dangerous operations
+        1. Check if untrusted sources were accessed in recent operations (from context)
+        2. If yes, block ALL dangerous operations
         3. This implements strict isolation: untrusted → dangerous = BLOCKED
         
-        Uses stateful tracking (self.untrusted_accessed) to persist across calls,
-        similar to the dataflow guardrail approach.
+        Uses context (stateless) to avoid Go-Explore snapshot/restore bugs.
         
         Args:
             tool_name: Name of the tool being called
             tool_args: Arguments for the tool
-            context: Context dictionary (not used in this implementation)
+            context: Context dictionary (includes recent_sources, recent_tools, last_user)
         
         Returns:
             Decision to ALLOW or DENY the operation
         """
-        # Step 1: Track untrusted content access
-        if tool_name in self.untrusted_operations:
-            self.untrusted_accessed = True
+        # Check if untrusted source in recent operations (last 5 tools)
+        recent_sources = context.get("recent_sources", [])
+        untrusted_accessed = any(src in ["web", "email"] for src in recent_sources)
         
-        # Step 2: Block dangerous operations after untrusted access
-        if self.untrusted_accessed and tool_name in self.dangerous_operations:
+        # Block dangerous operations after untrusted access
+        if untrusted_accessed and tool_name in self.dangerous_operations:
             reason = f"Blocked {tool_name} after accessing untrusted source (strict isolation policy)"
             return Decision.deny(reason)
         

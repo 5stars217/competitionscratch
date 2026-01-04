@@ -9,7 +9,7 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-from examples.guardrails.guardrail_dataflow import Guardrail as DataFlowGuardrail
+from examples.guardrails.guardrail_pattern import Guardrail as PatternGuardrail
 from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 
@@ -28,7 +28,7 @@ def test_dataflow_guardrail(seconds: float = 30.0):
     print("="*70)
     
     # Run defense evaluation
-    report = eval_defense(DataFlowGuardrail, seconds)
+    report = eval_defense(PatternGuardrail, seconds)
     
     # Calculate scores
     score = score_defense(report)

@@ -188,7 +188,7 @@ def print_results_summary(results: Dict[str, Any]) -> None:
     print(f"  - Mode: {results['scoring_mode']}")
     print()
     print(f"Defense Score:  {defense['score']:.2f}")
-    print(f"  - Breaches blocked: {defense['breach_count']}")
+    print(f"  - Breaches (violations): {defense['breach_count']}")
     print(f"  - False positives: {defense['false_positives']}/{defense['benign_trials']}")
     print(f"  - FP rate: {defense['false_positive_rate']:.1%}")
     print()
@@ -247,7 +247,7 @@ def run_test(args) -> int:
             if 'class AttackAlgorithm' in content and 'class Guardrail' not in content:
                 # Attack only - use baseline guardrail
                 print_info("Detected attack submission (will use baseline guardrail)")
-                from examples.guardrails.guardrail_dataflow import Guardrail as BaselineGuardrail
+                from examples.guardrails.guardrail_optimal import Guardrail as BaselineGuardrail
                 
                 attack_mod = load_module_from_file(submission_path, "user_attack")
                 if not hasattr(attack_mod, "AttackAlgorithm"):

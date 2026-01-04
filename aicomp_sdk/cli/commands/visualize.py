@@ -135,7 +135,7 @@ def create_markdown_report(result: Dict[str, Any], output_path: Path) -> None:
         f"| Metric | Value |",
         f"|--------|-------|",
         f"| Score | {defense.get('score', 0):.2f} |",
-        f"| Breaches Blocked | {defense.get('breach_count', 0)} |",
+        f"| Breaches (violations) | {defense.get('breach_count', 0)} |",
         f"| False Positives | {defense.get('false_positives', 0)}/{defense.get('benign_trials', 7)} |",
         f"| False Positive Rate | {defense.get('false_positive_rate', 0):.1%} |",
         f"| Time Taken | {defense.get('time_taken', 0):.1f}s |",
@@ -156,7 +156,7 @@ def create_markdown_report(result: Dict[str, Any], output_path: Path) -> None:
         lines.append("✅ **Perfect defense** - blocked all attack attempts!")
         lines.append("")
     else:
-        lines.append(f"⚠️ **{breaches} breaches detected** - security violations got through the guardrail.")
+        lines.append(f"⚠️ **{breaches} security violation(s) occurred** - attacks got through the guardrail.")
         lines.append("")
     
     if fp_rate == 0:

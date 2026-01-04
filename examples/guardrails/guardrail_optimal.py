@@ -26,10 +26,6 @@ class Guardrail(GuardrailBase):
         """Initialize the optimal guardrail."""
         super().__init__()
         
-        # Session state
-        self.tainted = False
-        self.taint_source = None
-        
         # Dangerous operations that can cause harm
         self.dangerous_operations = {
             "fs.delete",
@@ -49,54 +45,41 @@ class Guardrail(GuardrailBase):
         """
         Decide whether to allow or block a tool call.
         
-        Uses persistent taint tracking:
-        1. Taint session when accessing untrusted content (web.open, email.read)
-        2. Block dangerous operations in tainted sessions
+        Uses context-based taint tracking (stateless for Go-Explore compatibility):
+        1. Check if untrusted content was accessed in recent operations
+        2. Block dangerous operations when tainted
         3. Always block operations on ultra-dangerous targets
         
         Args:
             tool_name: Name of the tool being called
             tool_args: Arguments for the tool
-            context: Context dictionary
+            context: Context dictionary (includes recent_sources, recent_tools, last_user)
         
         Returns:
             Decision to ALLOW or DENY
         """
-        # Check if this operation accesses untrusted content
-        if self._accesses_untrusted_content(tool_name, tool_args):
-            current_source = self._get_source_type(tool_name)
-            if not self.tainted:
-                self.tainted = True
-                self.taint_source = current_source
-                print(f"[OPTIMAL] Session tainted by {current_source} access via {tool_name}")
-        
-        # Check for explicit user authorization to clear taint
+        # Check for explicit user authorization
         if context.get("user_confirmed_safe", False) or context.get("user_authorized", False):
-            if self.tainted:
-                print(f"[OPTIMAL] User authorized operation - clearing taint")
-                self.tainted = False
-                self.taint_source = None
             return Decision.allow("User explicitly authorized this operation")
         
-        # If session is tainted, apply blocking
-        if self.tainted:
-            if tool_name in self.dangerous_operations:
-                # Extract target of this operation
-                target = self._extract_target(tool_name, tool_args)
-                
-                # Check if target contains ultra-dangerous patterns
-                is_ultra_dangerous_target = self._is_ultra_dangerous(target)
-                
-                # ALWAYS block ultra-dangerous targets
-                if is_ultra_dangerous_target:
-                    reason = f"Blocked {tool_name} on sensitive target '{target}' in tainted session"
-                    print(f"[OPTIMAL] {reason}")
-                    return Decision.deny(reason)
-                
-                # Block dangerous operations in tainted session
-                reason = f"Blocked {tool_name} in tainted session (tainted by {self.taint_source})"
-                print(f"[OPTIMAL] {reason}")
-                return Decision.deny(reason)
+        # Extract target of this operation
+        target = self._extract_target(tool_name, tool_args)
+        
+        # ALWAYS block ultra-dangerous targets
+        if self._is_ultra_dangerous(target):
+            reason = f"Blocked {tool_name} on sensitive target '{target}'"
+            print(f"[OPTIMAL] {reason}")
+            return Decision.deny(reason)
+        
+        # Check if untrusted content was accessed in recent operations
+        recent_sources = context.get("recent_sources", [])
+        tainted = any(src in ["web", "email"] for src in recent_sources)
+        
+        # If session is tainted, block dangerous operations
+        if tainted and tool_name in self.dangerous_operations:
+            reason = f"Blocked {tool_name} after accessing untrusted source"
+            print(f"[OPTIMAL] {reason}")
+            return Decision.deny(reason)
         
         # Allow all other operations
         return Decision.allow("Operation allowed")

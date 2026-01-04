@@ -26,7 +26,7 @@ repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
 from aicomp_sdk.core.env import SandboxEnv
-from examples.guardrails.guardrail_dataflow import Guardrail as BaselineGuardrail
+from examples.guardrails.guardrail_optimal import Guardrail as BaselineGuardrail
 from aicomp_sdk.scoring import score_attack
 from aicomp_sdk.core.predicates import eval_predicates
 from evaluation import eval_attack
