@@ -4,6 +4,7 @@ export default defineConfig({
   title: 'JED Framework',
   description: 'AI Agent Security Competition - Jailbreak, Exploit, Defend',
   base: '/competitionscratch/',
+  ignoreDeadLinks: true,
   
   themeConfig: {
     logo: '/logo.svg',
