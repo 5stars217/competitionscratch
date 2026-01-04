@@ -4,6 +4,7 @@ Documentation - https://mbhatt1.github.io/competitionscratch/
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/pypi/v/aicomp-sdk.svg)](https://pypi.org/project/aicomp-sdk/)
+[![Open In Kaggle](https://img.shields.io/badge/Kaggle-Open%20Notebook-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/kernels/welcome?src=https://github.com/mbhatt1/competitionscratch/blob/master/starter_notebook.ipynb)
 
 **JED Framework** (Jailbreak, Exploit, Defend) is a comprehensive framework for AI agent security research and competition. Build adversarial attacks to breach AI agent defenses, create defensive guardrails to protect against exploits, and compete for the top of the leaderboard.
 
@@ -11,7 +12,13 @@ Documentation - https://mbhatt1.github.io/competitionscratch/
 
 ## 🚀 Quick Start
 
-### Installation
+### Try on Kaggle (Recommended)
+
+[![Open In Kaggle](https://img.shields.io/badge/Kaggle-Open%20Notebook-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/kernels/welcome?src=https://github.com/mbhatt1/competitionscratch/blob/master/starter_notebook.ipynb)
+
+Click the badge above to open the starter notebook directly in Kaggle - no setup required!
+
+### Local Installation
 
 ```bash
 pip install aicomp-sdk
