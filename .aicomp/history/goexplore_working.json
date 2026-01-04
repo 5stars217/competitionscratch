@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 379.02000000000004,
+    "score_raw": 75804.0,
+    "findings_count": 1825,
+    "unique_cells": 306,
+    "time_taken": 30.036570072174072
+  },
+  "defense": {
+    "score": 2.1452322213879653,
+    "breach_count": 3101,
+    "false_positives": 0,
+    "benign_trials": 7,
+    "false_positive_rate": 0.0,
+    "time_taken": 27.713263034820557
+  },
+  "final_score": 381.165232221388,
+  "scoring_mode": "normalized",
+  "run_name": "goexplore_working",
+  "timestamp": "2026-01-03T13:06:00.676145"
+}

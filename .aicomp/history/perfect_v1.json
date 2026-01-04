@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 682.87,
+    "score_raw": 136574.0,
+    "findings_count": 4144,
+    "unique_cells": 3435,
+    "time_taken": 39.02689003944397
+  },
+  "defense": {
+    "score": 428.57142857142856,
+    "breach_count": 0,
+    "false_positives": 5,
+    "benign_trials": 7,
+    "false_positive_rate": 0.7142857142857143,
+    "time_taken": 31.92669916152954
+  },
+  "final_score": 1111.4414285714286,
+  "scoring_mode": "normalized",
+  "run_name": "perfect_v1",
+  "timestamp": "2026-01-03T15:20:22.463422"
+}

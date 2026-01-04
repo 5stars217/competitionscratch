@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 1000.0,
+    "score_raw": 240044.0,
+    "findings_count": 6952,
+    "unique_cells": 5746,
+    "time_taken": 39.40699124336243
+  },
+  "defense": {
+    "score": 2.1975607076145476,
+    "breach_count": 3027,
+    "false_positives": 0,
+    "benign_trials": 7,
+    "false_positive_rate": 0.0,
+    "time_taken": 27.823898315429688
+  },
+  "final_score": 1002.1975607076146,
+  "scoring_mode": "normalized",
+  "run_name": "baseline_goexplore",
+  "timestamp": "2026-01-03T13:07:55.667487"
+}

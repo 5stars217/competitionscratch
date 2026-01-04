@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 1000.0,
+    "score_raw": 216006.0,
+    "findings_count": 6631,
+    "unique_cells": 5527,
+    "time_taken": 38.518043994903564
+  },
+  "defense": {
+    "score": 0.0,
+    "breach_count": 2453,
+    "false_positives": 5,
+    "benign_trials": 7,
+    "false_positive_rate": 0.7142857142857143,
+    "time_taken": 27.127201795578003
+  },
+  "final_score": 1000.0,
+  "scoring_mode": "normalized",
+  "run_name": "dataflow_v4",
+  "timestamp": "2026-01-03T16:13:42.289652"
+}

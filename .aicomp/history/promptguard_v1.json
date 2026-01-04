@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 1000.0,
+    "score_raw": 234468.0,
+    "findings_count": 6790,
+    "unique_cells": 5606,
+    "time_taken": 39.2129180431366
+  },
+  "defense": {
+    "score": 2.581311306143521,
+    "breach_count": 2576,
+    "false_positives": 0,
+    "benign_trials": 7,
+    "false_positive_rate": 0.0,
+    "time_taken": 32.97067880630493
+  },
+  "final_score": 1002.5813113061436,
+  "scoring_mode": "normalized",
+  "run_name": "promptguard_v1",
+  "timestamp": "2026-01-03T13:17:48.130168"
+}

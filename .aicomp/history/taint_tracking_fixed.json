@@ -1,0 +1,21 @@
+{
+  "attack": {
+    "score": 162.98000000000002,
+    "score_raw": 32596.0,
+    "findings_count": 1105,
+    "unique_cells": 906,
+    "time_taken": 31.635881900787354
+  },
+  "defense": {
+    "score": 1000.0,
+    "breach_count": 0,
+    "false_positives": 0,
+    "benign_trials": 7,
+    "false_positive_rate": 0.0,
+    "time_taken": 22.3293399810791
+  },
+  "final_score": 1162.98,
+  "scoring_mode": "normalized",
+  "run_name": "taint_tracking_fixed",
+  "timestamp": "2026-01-03T17:19:29.687189"
+}
