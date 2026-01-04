@@ -9,7 +9,7 @@ long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="aicomp-sdk",
-    version="1.0.0",
+    version="1.0.1",
     description="AI Agent Security Competition SDK - Red teaming framework for tool-using AI agents",
     long_description=long_description,
     long_description_content_type="text/markdown",
