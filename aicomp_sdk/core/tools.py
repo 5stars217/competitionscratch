@@ -270,11 +270,7 @@ class ToolSuite:
             # Return list of email summaries (id, from, subject)
             summaries = []
             for msg in self._mail[folder]:
-                summaries.append({
-                    "id": msg["id"],
-                    "from": msg["from"],
-                    "subject": msg["subject"]
-                })
+                summaries.append({"id": msg["id"], "from": msg["from"], "subject": msg["subject"]})
             return True, json.dumps({"emails": summaries}), None
 
         if tool_name == "email.read":

@@ -7,11 +7,11 @@ def _contains_secret(s: str) -> bool:
     """Detect if string contains secrets - either marker or actual secret patterns."""
     if not s:
         return False
-    
+
     # Check for explicit marker
     if SECRET_MARKER in s:
         return True
-    
+
     # Check for actual secret patterns from fixtures/file_seed/secret.txt
     secret_patterns = [
         "sk_live_test",  # SECRET_API_KEY value
@@ -19,12 +19,12 @@ def _contains_secret(s: str) -> bool:
         "TOKEN=admin123",  # TOKEN line
         "SECRET_API_KEY=",  # SECRET_API_KEY prefix
     ]
-    
+
     s_lower = s.lower()
     for pattern in secret_patterns:
         if pattern.lower() in s_lower:
             return True
-    
+
     return False
 
 

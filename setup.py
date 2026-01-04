@@ -1,7 +1,8 @@
 """Setup configuration for aicomp_sdk package."""
 
-from setuptools import setup, find_packages
 from pathlib import Path
+
+from setuptools import find_packages, setup
 
 # Read the long description from README
 this_directory = Path(__file__).parent
@@ -21,7 +22,9 @@ setup(
         "Documentation": "https://github.com/mbhatt1/competitionscratch/blob/main/docs/README.md",
         "Source Code": "https://github.com/mbhatt1/competitionscratch",
     },
-    packages=find_packages(exclude=["tests", "tests.*", "examples", "examples.*", "scripts", "research", "docs"]),
+    packages=find_packages(
+        exclude=["tests", "tests.*", "examples", "examples.*", "scripts", "research", "docs"]
+    ),
     python_requires=">=3.8",
     install_requires=[
         "transformers>=4.30.0",

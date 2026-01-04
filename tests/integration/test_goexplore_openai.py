@@ -5,15 +5,15 @@ Test Go-Explore attack with OpenAI API
 
 import os
 from pathlib import Path
-from aicomp_sdk.core.env import SandboxEnv
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail
 
 # Import the baseline Go-Explore attacker
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail
+from aicomp_sdk.core.env import SandboxEnv
 
-print("="*70)
+print("=" * 70)
 print("Testing Go-Explore Attack with OpenAI API")
-print("="*70)
+print("=" * 70)
 
 if not os.environ.get("OPENAI_API_KEY"):
     print("\n⚠️  OPENAI_API_KEY not set")

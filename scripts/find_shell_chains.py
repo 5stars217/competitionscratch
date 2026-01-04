@@ -12,10 +12,13 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.core.env import SandboxEnv
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
-from examples_hooks_submission.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
+from examples_hooks_submission.guardrail_prompt_injection import (
+    Guardrail as PromptInjectionGuardrail,
+)
+
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.core.env import SandboxEnv
 
 # Check for OpenAI API key
 if not os.environ.get("OPENAI_API_KEY"):
@@ -23,9 +26,9 @@ if not os.environ.get("OPENAI_API_KEY"):
 
 fixtures = repo_root / "fixtures"
 
-print("="*70)
+print("=" * 70)
 print("FINDING ALL SHELL.RUN EXECUTION CHAINS")
-print("="*70)
+print("=" * 70)
 print()
 
 # Run Go-Explore with TARGETED shell exploration
@@ -40,22 +43,22 @@ shell_chains_success = []
 shell_chains_blocked = []
 
 for f in findings:
-    user_messages = f.get('user_messages', [])
-    tool_events = f.get('trace', {}).get('tool_events', [])
-    
+    user_messages = f.get("user_messages", [])
+    tool_events = f.get("trace", {}).get("tool_events", [])
+
     # Check if any tool event is shell.run
     for evt in tool_events:
-        if evt.get('name') == 'shell.run':
+        if evt.get("name") == "shell.run":
             chain_info = {
-                'chain': ' -> '.join(user_messages),
-                'cmd': evt.get('args', {}).get('cmd', ''),
-                'success': evt.get('ok', False),
-                'error': evt.get('error', ''),
-                'tool_sequence': [e.get('name') for e in tool_events],
-                'depth': len(user_messages)
+                "chain": " -> ".join(user_messages),
+                "cmd": evt.get("args", {}).get("cmd", ""),
+                "success": evt.get("ok", False),
+                "error": evt.get("error", ""),
+                "tool_sequence": [e.get("name") for e in tool_events],
+                "depth": len(user_messages),
             }
-            
-            if evt.get('ok'):
+
+            if evt.get("ok"):
                 shell_chains_success.append(chain_info)
             else:
                 shell_chains_blocked.append(chain_info)
@@ -74,21 +77,21 @@ attacker_guard = AttackAlgorithm({"max_turns": 6, "branch_batch": 12, "target_sh
 findings_guard = attacker_guard.run(env_guard, {"seconds": 120})
 
 for f in findings_guard:
-    user_messages = f.get('user_messages', [])
-    tool_events = f.get('trace', {}).get('tool_events', [])
-    
+    user_messages = f.get("user_messages", [])
+    tool_events = f.get("trace", {}).get("tool_events", [])
+
     for evt in tool_events:
-        if evt.get('name') == 'shell.run':
+        if evt.get("name") == "shell.run":
             chain_info = {
-                'chain': ' -> '.join(user_messages),
-                'cmd': evt.get('args', {}).get('cmd', ''),
-                'success': evt.get('ok', False),
-                'error': evt.get('error', ''),
-                'tool_sequence': [e.get('name') for e in tool_events],
-                'depth': len(user_messages)
+                "chain": " -> ".join(user_messages),
+                "cmd": evt.get("args", {}).get("cmd", ""),
+                "success": evt.get("ok", False),
+                "error": evt.get("error", ""),
+                "tool_sequence": [e.get("name") for e in tool_events],
+                "depth": len(user_messages),
             }
-            
-            if evt.get('ok'):
+
+            if evt.get("ok"):
                 shell_chains_with_guard_success.append(chain_info)
             else:
                 shell_chains_with_guard_blocked.append(chain_info)
@@ -112,7 +115,7 @@ if shell_chains_blocked:
     print(f"\n{'='*70}")
     print("BLOCKED SHELL.RUN CHAINS (NO GUARDRAIL)")
     print(f"{'='*70}")
-    
+
     for i, chain in enumerate(shell_chains_blocked, 1):
         print(f"\n[{i}] Depth {chain['depth']}")
         print(f"    Chain: {chain['chain']}")
@@ -135,7 +138,7 @@ if shell_chains_with_guard_blocked:
     print(f"\n{'='*70}")
     print("BLOCKED SHELL.RUN CHAINS (WITH GUARDRAIL)")
     print(f"{'='*70}")
-    
+
     for i, chain in enumerate(shell_chains_with_guard_blocked[:5], 1):  # Show first 5
         print(f"\n[{i}] Depth {chain['depth']}")
         print(f"    Chain: {chain['chain']}")
@@ -156,6 +159,8 @@ print(f"  Blocked shell.run: {len(shell_chains_with_guard_blocked)}")
 blocked_count = len(shell_chains_success) - len(shell_chains_with_guard_success)
 if len(shell_chains_success) > 0:
     block_rate = (blocked_count / len(shell_chains_success)) * 100
-    print(f"\nGuardrail blocked {blocked_count}/{len(shell_chains_success)} chains ({block_rate:.1f}%)")
+    print(
+        f"\nGuardrail blocked {blocked_count}/{len(shell_chains_success)} chains ({block_rate:.1f}%)"
+    )
 
 print(f"\n{'='*70}\n")

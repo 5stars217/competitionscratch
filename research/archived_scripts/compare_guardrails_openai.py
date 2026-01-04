@@ -11,10 +11,13 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.core.env import SandboxEnv
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
-from examples_hooks_submission.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
+from examples_hooks_submission.guardrail_prompt_injection import (
+    Guardrail as PromptInjectionGuardrail,
+)
+
 from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.core.env import SandboxEnv
 from tests.test_verify_findings import detect_real_attacks
 
 # Check for OpenAI API key
@@ -30,9 +33,9 @@ secret_file = fixtures / "file_seed" / "secret.txt"
 if not secret_file.exists():
     secret_file.write_text("SECRET_API_KEY=sk_live_test\nPASSWORD=test123\nTOKEN=admin123")
 
-print("="*70)
+print("=" * 70)
 print("COMPARING GUARDRAILS")
-print("="*70)
+print("=" * 70)
 print()
 
 # Test 1: No Guardrail (Allow All)
@@ -55,7 +58,11 @@ for idx, f in enumerate(findings_no_guard):
 
 print(f"  Total findings: {len(findings_no_guard)}")
 print(f"  Real attacks: {len(real_attacks_no_guard)}")
-print(f"  Detection rate: {len(real_attacks_no_guard)/len(findings_no_guard)*100:.1f}%" if findings_no_guard else "  Detection rate: N/A")
+print(
+    f"  Detection rate: {len(real_attacks_no_guard)/len(findings_no_guard)*100:.1f}%"
+    if findings_no_guard
+    else "  Detection rate: N/A"
+)
 
 # Count attack types
 attack_types_no_guard = {}
@@ -84,7 +91,11 @@ for idx, f in enumerate(findings_with_guard):
 
 print(f"  Total findings: {len(findings_with_guard)}")
 print(f"  Real attacks: {len(real_attacks_with_guard)}")
-print(f"  Detection rate: {len(real_attacks_with_guard)/len(findings_with_guard)*100:.1f}%" if findings_with_guard else "  Detection rate: N/A")
+print(
+    f"  Detection rate: {len(real_attacks_with_guard)/len(findings_with_guard)*100:.1f}%"
+    if findings_with_guard
+    else "  Detection rate: N/A"
+)
 
 # Count attack types
 attack_types_with_guard = {}
@@ -115,7 +126,9 @@ for atype, count in sorted(attack_types_with_guard.items(), key=lambda x: x[1], 
 # Calculate reduction
 reduction_pct = 0
 if len(real_attacks_no_guard) > 0:
-    reduction_pct = ((len(real_attacks_no_guard) - len(real_attacks_with_guard)) / len(real_attacks_no_guard)) * 100
+    reduction_pct = (
+        (len(real_attacks_no_guard) - len(real_attacks_with_guard)) / len(real_attacks_no_guard)
+    ) * 100
 
 print(f"\n{'='*70}")
 print("EFFECTIVENESS")

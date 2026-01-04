@@ -14,10 +14,13 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from aicomp_sdk.core.env import SandboxEnv
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
-from examples_hooks_submission.guardrail_prompt_injection import Guardrail as PromptInjectionGuardrail
 from examples_hooks_submission.attack_working import AttackAlgorithm
+from examples_hooks_submission.guardrail_prompt_injection import (
+    Guardrail as PromptInjectionGuardrail,
+)
+
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.core.env import SandboxEnv
 from tests.test_verify_findings import detect_real_attacks
 
 fixtures = repo_root / "fixtures"
@@ -29,12 +32,13 @@ if not secret_file.exists():
 
 # CRITICAL: Unset API keys to force use of vulnerable deterministic agent
 import os
+
 old_openai_key = os.environ.pop("OPENAI_API_KEY", None)
 old_gpt_oss_path = os.environ.pop("GPT_OSS_MODEL_PATH", None)
 
-print("="*70)
+print("=" * 70)
 print("COMPARING ATTACK SUCCESS: NO GUARDRAIL VS PROMPT INJECTION GUARDRAIL")
-print("="*70)
+print("=" * 70)
 
 # Test 1: No Guardrail (Allow All)
 print("\n[Test 1] Running attack with NO GUARDRAIL...")
@@ -106,7 +110,9 @@ for atype, count in sorted(attack_types_with_guard.items(), key=lambda x: x[1], 
 # Calculate reduction
 reduction_pct = 0
 if len(real_attacks_no_guard) > 0:
-    reduction_pct = ((len(real_attacks_no_guard) - len(real_attacks_with_guard)) / len(real_attacks_no_guard)) * 100
+    reduction_pct = (
+        (len(real_attacks_no_guard) - len(real_attacks_with_guard)) / len(real_attacks_no_guard)
+    ) * 100
 
 print(f"\n{'='*70}")
 print("EFFECTIVENESS")
