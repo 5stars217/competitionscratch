@@ -9,7 +9,7 @@ from aicomp_sdk.core.cells import cell_signature
 from aicomp_sdk.utils.timebox import Timebox
 
 # Import real attack detection
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "tests"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tests" / "integration"))
 try:
     from test_verify_findings import detect_real_attacks
     REAL_ATTACK_DETECTION_AVAILABLE = True

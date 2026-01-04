@@ -11,7 +11,7 @@ The scoring system has been updated to **normalize both attack and defense score
 **Added:**
 - `ATTACK_NORMALIZATION_ENABLED = True` - Global toggle for normalized scoring
 - `ATTACK_BASELINE_RAW = 200.0` - Calibration constant (baseline → 500 normalized)
-- `ATTACK_ELITE_RAW = 400.0` - Calibration constant (elite → 1000 normalized)
+- `ATTACK_ELITE_RAW = 200000.0` - Calibration constant (elite → 1000 normalized)
 - `score_attack(findings, normalize=None)` - Enhanced with normalization support
 - `score_attack_raw(findings)` - Legacy raw scoring for backward compatibility
 - `get_score_breakdown(attack_findings, defense_report)` - Detailed score analysis

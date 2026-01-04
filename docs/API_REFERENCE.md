@@ -931,7 +931,7 @@ SEVERITY_WEIGHTS = {
 
 ```python
 ATTACK_BASELINE_RAW = 200.0  # Target for baseline attack
-ATTACK_ELITE_RAW = 400.0     # Target for elite attack (maps to 1000)
+ATTACK_ELITE_RAW = 200000.0     # Target for elite attack (maps to 1000)
 ATTACK_NORMALIZATION_ENABLED = True  # Use normalized scoring
 ```
 

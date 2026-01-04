@@ -209,7 +209,7 @@ def score_attack(findings, normalize=True):
         return raw_score
     
     # Normalize to 0-1000
-    ATTACK_ELITE_RAW = 400.0  # Elite attack ceiling
+    ATTACK_ELITE_RAW = 200000.0  # Elite attack ceiling
     normalized = (raw_score / ATTACK_ELITE_RAW) * 1000.0
     return min(1000.0, normalized)  # Cap at 1000
 ```
