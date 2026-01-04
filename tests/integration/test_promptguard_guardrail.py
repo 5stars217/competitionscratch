@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
 Test Meta's Prompt-Guard-86M guardrail against baseline attacker.
+
+NOTE: This test requires access to the gated meta-llama/Prompt-Guard-86M model.
+If you don't have access, the test will be skipped.
 """
 
 import sys
 from pathlib import Path
+import pytest
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
@@ -14,7 +18,10 @@ from evaluation import eval_defense
 from aicomp_sdk.scoring import score_defense
 
 def test_promptguard_guardrail(seconds: float = 30.0):
-    """Test Prompt-Guard-86M guardrail against baseline attacker."""
+    """Test Prompt-Guard-86M guardrail against baseline attacker.
+    
+    Skips if model is not accessible (gated repo).
+    """
     
     print("="*70)
     print("META LLAMA PROMPT-GUARD-86M GUARDRAIL TEST")
@@ -33,8 +40,16 @@ def test_promptguard_guardrail(seconds: float = 30.0):
     print(f"\nRunning evaluation...")
     print("="*70)
     
-    # Run defense evaluation
-    report = eval_defense(PromptGuardGuardrail, seconds)
+    # Try to run defense evaluation, skip if model is gated
+    try:
+        report = eval_defense(PromptGuardGuardrail, seconds)
+    except OSError as e:
+        if "gated repo" in str(e).lower() or "401" in str(e):
+            pytest.skip(
+                "Prompt-Guard-86M model requires access approval. "
+                "Visit https://huggingface.co/meta-llama/Prompt-Guard-86M to request access."
+            )
+        raise
     
     # Calculate defense score
     defense_score = score_defense(report)

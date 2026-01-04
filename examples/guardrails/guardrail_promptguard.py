@@ -7,6 +7,15 @@ This guardrail uses a trained classifier to detect:
 
 Model: meta-llama/Prompt-Guard-86M (86M parameters)
 License: Llama 3.1
+
+⚠️ NOTE: This model requires access approval from Meta.
+To use this guardrail:
+1. Visit https://huggingface.co/meta-llama/Prompt-Guard-86M
+2. Request access (usually approved within minutes)
+3. Login with: huggingface-cli login
+4. Run your code - the model will download automatically
+
+Alternative: Use guardrail_prompt_injection.py (no model required)
 """
 
 from aicomp_sdk.guardrails.base import GuardrailBase, Decision
