@@ -547,6 +547,101 @@ Attackers use files as intermediaries:
 
 ---
 
+## Learning from Integration Tests
+
+The SDK includes **8 comprehensive integration tests** demonstrating different guardrail strategies. Study these tests to understand proven defense patterns:
+
+### Test Suite Overview
+
+#### 1. [`test_perfect_guardrail.py`](../tests/integration/test_perfect_guardrail.py)
+**Strategy**: Strict window=2 isolation with ultra-sensitive detection
+
+- Blocks ALL dangerous operations (shell.run, http.post, email.send, fs.delete, fs.write to sensitive files)
+- Uses extremely narrow context window (2 tools)
+- Achieves 0 breaches but may have higher false positive rate
+- **Best for**: Maximum security scenarios where usability is secondary
+
+#### 2. [`test_optimal_guardrail.py`](../tests/integration/test_optimal_guardrail.py)
+**Strategy**: Balanced window=5 context + ultra-dangerous pattern detection
+
+- Wider context window (5 tools) for better data flow tracking
+- Enhanced pattern detection for "ultra-dangerous" combinations
+- Balances security with usability
+- **Best for**: Production systems requiring both security and functionality
+
+#### 3. [`test_taint_tracking_guardrail.py`](../tests/integration/test_taint_tracking_guardrail.py)
+**Strategy**: Persistent session-level taint tracking
+
+- Marks data as "tainted" when from sensitive or untrusted sources
+- Tracks taint propagation across tool calls
+- Blocks dangerous operations on tainted data
+- **Best for**: Complex multi-step attack detection
+
+#### 4. [`test_dataflow_guardrail.py`](../tests/integration/test_dataflow_guardrail.py)
+**Strategy**: Tracks untrusted→sensitive→dangerous data flows
+
+- Three-level classification: untrusted sources, sensitive targets, dangerous actions
+- Detects complete attack chains (read sensitive → exfiltrate)
+- Context-aware decision making
+- **Best for**: Detecting sophisticated multi-step attacks
+
+#### 5. [`test_dataflow_comprehensive.py`](../tests/integration/test_dataflow_comprehensive.py)
+**Strategy**: 37 benign commands test suite validating false positive rate
+
+- Tests guardrail against common legitimate operations
+- Ensures benign file reads, web searches, and system operations are allowed
+- Critical for validating low false positive rate
+- **Best for**: Ensuring your guardrail doesn't break legitimate use cases
+
+#### 6. [`test_promptguard_guardrail.py`](../tests/integration/test_promptguard_guardrail.py)
+**Strategy**: ML-based prompt injection detection (86M parameter model)
+
+- Uses Meta's PromptGuard ML model for detection
+- Detects indirect prompt injection in user messages and tool outputs
+- Requires model download and inference
+- **Best for**: Advanced prompt injection defense
+
+#### 7. [`test_prompt_injection_guardrail.py`](../tests/integration/test_prompt_injection_guardrail.py)
+**Strategy**: Pattern-based prompt injection detection
+
+- Detects patterns like "IGNORE PREVIOUS", "SYSTEM:", "<|endoftext|>"
+- Fast rule-based approach without ML overhead
+- Covers common injection techniques
+- **Best for**: Efficient baseline prompt injection protection
+
+#### 8. [`test_baseline_defense.py`](../tests/integration/test_baseline_defense.py)
+**Strategy**: Rule-based baseline with pattern matching
+
+- Blocks suspicious URLs, email addresses, and file patterns
+- Detects malicious content patterns
+- Simple but effective against common attacks
+- **Best for**: Starting point for custom guardrail development
+
+### Running These Tests
+
+```bash
+# Run all guardrail integration tests
+pytest tests/integration/test_*_guardrail.py -v
+
+# Run a specific guardrail test
+pytest tests/integration/test_perfect_guardrail.py -v
+
+# See what each test validates
+pytest tests/integration/test_perfect_guardrail.py -v -s
+```
+
+### Key Learnings from Tests
+
+1. **Context window matters**: Wider windows (5+) catch more complex attacks but risk false positives
+2. **Taint tracking is powerful**: Persistent tracking across tool calls detects multi-step attacks
+3. **Test against benign operations**: Always validate with legitimate use cases (see dataflow_comprehensive)
+4. **Multiple strategies work**: Perfect score (1000/1000) can be achieved with different approaches
+5. **Balance is critical**: Zero breaches with zero false positives requires careful tuning
+
+Study the actual test implementations to understand how each strategy is validated and what edge cases they handle.
+
+---
+
 ## Advanced Techniques
 
 ### Technique 1: Taint Tracking

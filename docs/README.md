@@ -329,6 +329,31 @@ pip install -e ".[dev]"
 pytest tests/
 ```
 
+### Testing
+
+The SDK includes a comprehensive test suite with **22 tests** covering all major functionality:
+
+- **14 integration tests** validating real-world scenarios
+  - 8 guardrail/defense tests (perfect, optimal, taint tracking, dataflow, promptguard, prompt injection, baseline)
+  - 5 attack tests (baseline performance, verification, Go-Explore, hooks comparison, minimal breach)
+  - 1 scoring test (balance validation)
+- **8 unit tests** covering core SDK components (cells, env, predicates, replay, scoring, tools, trace, guardrails)
+
+**Test fixtures**: 3,211 prompt injection examples across mail, web, and file system scenarios.
+
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run integration tests only
+pytest tests/integration/ -v
+
+# Run unit tests only
+pytest tests/unit/ -v
+```
+
+See [TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for detailed testing documentation.
+
 ## 📋 Requirements
 
 - **Python**: 3.8 or higher

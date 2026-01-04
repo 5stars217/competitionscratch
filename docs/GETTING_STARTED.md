@@ -737,6 +737,60 @@ See [SCORING.md](SCORING.md) for detailed formulas and optimization strategies.
 
 See [FAQ.md](FAQ.md) for more troubleshooting.
 
+### Running Tests
+
+The SDK includes a comprehensive test suite to help you validate your implementations and understand framework behavior:
+
+#### Running All Tests
+
+```bash
+# Run complete test suite (14 integration + 8 unit tests)
+pytest tests/
+
+# Run with verbose output
+pytest tests/ -v
+
+# Run specific test categories
+pytest tests/integration/  # Integration tests only
+pytest tests/unit/         # Unit tests only
+```
+
+#### Test Suite Overview
+
+The SDK includes **22 tests** covering core functionality:
+
+**Integration Tests (14 tests)** - Real-world scenarios with the full framework:
+- **Guardrail tests (8)**: [`test_perfect_guardrail.py`](../tests/integration/test_perfect_guardrail.py), [`test_optimal_guardrail.py`](../tests/integration/test_optimal_guardrail.py), [`test_taint_tracking_guardrail.py`](../tests/integration/test_taint_tracking_guardrail.py), [`test_dataflow_guardrail.py`](../tests/integration/test_dataflow_guardrail.py), [`test_dataflow_comprehensive.py`](../tests/integration/test_dataflow_comprehensive.py), [`test_promptguard_guardrail.py`](../tests/integration/test_promptguard_guardrail.py), [`test_prompt_injection_guardrail.py`](../tests/integration/test_prompt_injection_guardrail.py), [`test_baseline_defense.py`](../tests/integration/test_baseline_defense.py)
+- **Attack tests (5)**: [`test_baseline_performance.py`](../tests/integration/test_baseline_performance.py), [`test_verify_findings.py`](../tests/integration/test_verify_findings.py), [`test_goexplore_openai.py`](../tests/integration/test_goexplore_openai.py), [`test_hooks_vs_baseline.py`](../tests/integration/test_hooks_vs_baseline.py), [`test_minimal_breach.py`](../tests/integration/test_minimal_breach.py)
+- **Scoring test (1)**: [`test_scoring_balance.py`](../tests/integration/test_scoring_balance.py)
+
+**Unit Tests (8 tests)** - Core SDK components:
+- [`test_cells.py`](../tests/unit/test_cells.py), [`test_env.py`](../tests/unit/test_env.py), [`test_predicates.py`](../tests/unit/test_predicates.py), [`test_replay.py`](../tests/unit/test_replay.py), [`test_scoring.py`](../tests/unit/test_scoring.py), [`test_tools.py`](../tests/unit/test_tools.py), [`test_trace.py`](../tests/unit/test_trace.py), [`test_base_guardrails.py`](../tests/unit/test_base_guardrails.py)
+
+#### Test Data and Fixtures
+
+The `fixtures/` directory contains **3,211 prompt injection examples** (50.9x increase from original 63):
+- `mail_seed.json` - Email scenarios with prompt injection attempts
+- `web_corpus.json` - Web content with malicious payloads
+- `file_seed/*.txt` - File system content for testing
+
+These fixtures power the test suite and provide realistic attack scenarios.
+
+#### Running Specific Test Examples
+
+```bash
+# Test a specific guardrail strategy
+pytest tests/integration/test_perfect_guardrail.py -v
+
+# Test attack performance
+pytest tests/integration/test_baseline_performance.py -v
+
+# Test scoring calculations
+pytest tests/integration/test_scoring_balance.py -v
+```
+
+See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing documentation.
+
 ### Submitting to Kaggle
 
 1. **Upload your submission.zip** to the competition submission page

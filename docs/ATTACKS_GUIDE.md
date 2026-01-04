@@ -641,6 +641,23 @@ Then:
 
 ## Testing Your Attack
 
+### Learning from Integration Tests
+
+The SDK includes comprehensive integration tests demonstrating real-world attack scenarios. Study these as practical examples:
+
+**Attack Performance Tests:**
+- [`test_baseline_performance.py`](../tests/integration/test_baseline_performance.py) - Validates baseline Go-Explore attack performance against rule-based guardrail (achieves 100+ findings)
+- [`test_verify_findings.py`](../tests/integration/test_verify_findings.py) - Verifies attack findings contain valid predicates and proper trace structure
+- [`test_hooks_vs_baseline.py`](../tests/integration/test_hooks_vs_baseline.py) - Demonstrates how hooks enhance attack effectiveness compared to baseline approaches
+- [`test_goexplore_openai.py`](../tests/integration/test_goexplore_openai.py) - Tests Go-Explore with OpenAI agent (requires API key)
+- [`test_minimal_breach.py`](../tests/integration/test_minimal_breach.py) - Shows minimal examples needed to trigger each predicate type
+
+**Key learnings from these tests:**
+1. **Baseline performance**: Go-Explore typically finds 100+ vulnerabilities against rule-based defenses
+2. **Hook enhancement**: Hooks can improve attack success rates significantly
+3. **Predicate validation**: All findings must contain valid predicates to count toward score
+4. **Diverse strategies**: Different approaches work better against different guardrails
+
 ### Local Testing Framework
 
 Create `test_my_attack.py`:
