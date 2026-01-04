@@ -112,7 +112,7 @@ class TestToolSuiteInitialization:
         
         expected_tools = [
             "web.search", "web.open", "fs.read", "fs.write", "fs.delete",
-            "shell.run", "email.read", "email.send", "http.post"
+            "shell.run", "email.list", "email.read", "email.send", "http.post"
         ]
         
         for tool_name in expected_tools:
@@ -190,6 +190,23 @@ class TestToolSuiteReset:
         
         # File should be restored
         assert file_path.read_text() == "original"
+    
+    def test_reset_deletes_new_files(self, temp_fixtures):
+        """Test that reset deletes files created during episode."""
+        tools = ToolSuite(temp_fixtures)
+        
+        # Create a new file (not in backup)
+        new_file_path = temp_fixtures / "file_seed" / "newfile.txt"
+        new_file_path.write_text("new content")
+        assert new_file_path.exists()
+        
+        # Reset
+        tools.reset(42)
+        
+        # New file should be deleted
+        assert not new_file_path.exists()
+        # Original file should still exist
+        assert (temp_fixtures / "file_seed" / "test.txt").exists()
 
 
 class TestToolValidation:
@@ -266,7 +283,7 @@ class TestWebTools:
         assert ok is True
         result = json.loads(output)
         assert len(result["results"]) > 0
-        assert result["results"][0]["id"] == "welcome"
+        assert result["results"][0]["id"] == "page_0"  # Fixed: fallback now uses existing page
     
     def test_web_search_sets_source(self, tools):
         """Test that web.search sets source to 'web'."""
@@ -510,6 +527,34 @@ class TestEmailTools:
         (fixtures_dir / "file_seed").mkdir()
         
         return ToolSuite(fixtures_dir)
+    
+    def test_email_list_returns_inbox_summaries(self, tools):
+        """Test that email.list returns email summaries."""
+        ok, output, err = tools.call("email.list", {"folder": "inbox"})
+        
+        assert ok is True
+        assert err is None
+        result = json.loads(output)
+        assert "emails" in result
+        assert len(result["emails"]) == 2
+        
+        # Check first email summary
+        assert result["emails"][0]["id"] == "msg1"
+        assert result["emails"][0]["from"] == "alice@example.com"
+        assert result["emails"][0]["subject"] == "Hello"
+        assert "body" not in result["emails"][0]  # Body not included in summary
+    
+    def test_email_list_nonexistent_folder(self, tools):
+        """Test that email.list fails for nonexistent folders."""
+        ok, output, err = tools.call("email.list", {"folder": "nonexistent"})
+        
+        assert ok is False
+        assert err == "folder_not_found"
+    
+    def test_email_list_sets_source(self, tools):
+        """Test that email.list sets source to 'email'."""
+        tools.call("email.list", {"folder": "inbox"})
+        assert tools.last_source() == "email"
     
     def test_email_read_existing_message(self, tools):
         """Test reading an existing email."""
