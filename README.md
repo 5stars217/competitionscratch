@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/pypi/v/aicomp-sdk.svg)](https://pypi.org/project/aicomp-sdk/)
 
-**JED** (Jailbreak, Exploit, Defend) is a comprehensive framework for AI agent security research and competition. Build adversarial attacks to breach AI agent defenses, create defensive guardrails to protect against exploits, and compete for the top of the leaderboard.
+**JED Framework** (Jailbreak, Exploit, Defend) is a comprehensive framework for AI agent security research and competition. Build adversarial attacks to breach AI agent defenses, create defensive guardrails to protect against exploits, and compete for the top of the leaderboard.
 
 > 🎯 **Competition Goal**: Create both offensive attacks and defensive guardrails. Your final score = Attack Score (0-1000) + Defense Score (0-1000) = **up to 2000 points**.
 
