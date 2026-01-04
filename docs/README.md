@@ -1,9 +1,9 @@
-# AI Agent Security Competition
+# JED: AI Agent Security Competition
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Welcome to the AI Agent Security Competition!** Build attack algorithms to breach AI agent defenses and defensive guardrails to protect against attacks. Submit both and compete for the top of the leaderboard.
+**Welcome to JED (Jailbreak, Exploit, Defend)!** The comprehensive framework for AI agent security competition. Build attack algorithms to breach AI agent defenses and defensive guardrails to protect against attacks. Submit both and compete for the top of the leaderboard.
 
 ## 🎯 What You'll Build
 
@@ -319,7 +319,7 @@ python evaluation.py \
 
 ```bash
 # Clone repository (if using source)
-git clone https://github.com/yourusername/aicomp-sdk.git
+git clone https://github.com/mbhatt1/competitionscratch.git
 cd aicomp-sdk
 
 # Install in development mode
@@ -365,8 +365,8 @@ See [TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for detailed testing documentation
 - **[FAQ](docs/FAQ.md)** - Common questions and troubleshooting
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Step-by-step tutorial
 - **[API Reference](docs/API_REFERENCE.md)** - Complete documentation
-- **Issues**: [GitHub Issues](https://github.com/yourusername/aicomp-sdk/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/aicomp-sdk/discussions)
+- **Issues**: [GitHub Issues](https://github.com/mbhatt1/competitionscratch/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/mbhatt1/competitionscratch/discussions)
 
 ## 🚦 Competition Phases
 
@@ -427,7 +427,7 @@ If you use this SDK in your research, please cite:
   title={AI Agent Security Competition SDK},
   author={Competition Organizers},
   year={2026},
-  url={https://github.com/yourusername/aicomp-sdk}
+  url={https://github.com/mbhatt1/competitionscratch}
 }
 ```
 

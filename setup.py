@@ -15,11 +15,11 @@ setup(
     long_description_content_type="text/markdown",
     author="Competition Organizers",
     author_email="",  # Add email if available
-    url="https://github.com/yourusername/aicomp-sdk",  # Update with actual repository URL
+    url="https://github.com/mbhatt1/competitionscratch",
     project_urls={
-        "Bug Tracker": "https://github.com/yourusername/aicomp-sdk/issues",
-        "Documentation": "https://github.com/yourusername/aicomp-sdk/blob/main/docs/README.md",
-        "Source Code": "https://github.com/yourusername/aicomp-sdk",
+        "Bug Tracker": "https://github.com/mbhatt1/competitionscratch/issues",
+        "Documentation": "https://github.com/mbhatt1/competitionscratch/blob/main/docs/README.md",
+        "Source Code": "https://github.com/mbhatt1/competitionscratch",
     },
     packages=find_packages(exclude=["tests", "tests.*", "examples", "examples.*", "scripts", "research", "docs"]),
     python_requires=">=3.8",

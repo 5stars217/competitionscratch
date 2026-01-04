@@ -38,7 +38,7 @@ The competition environment requires fixture files (example files, emails, web c
 
 ```bash
 # If using git
-git clone https://github.com/yourusername/aicomp-sdk.git
+git clone https://github.com/mbhatt1/competitionscratch.git
 cd aicomp-sdk
 
 # Or download from Kaggle competition resources

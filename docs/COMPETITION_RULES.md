@@ -655,7 +655,7 @@ A: Report it via GitHub issues. Confirmed bugs will be fixed and competition tim
 
 ## Contact
 
-- **Technical Issues**: [GitHub Issues](https://github.com/yourusername/aicomp-sdk/issues)
+- **Technical Issues**: [GitHub Issues](https://github.com/mbhatt1/competitionscratch/issues)
 - **Competition Questions**: competition@example.com
 - **Discussion Forum**: [Kaggle Competition Forum](https://www.kaggle.com/c/ai-agent-security/discussion)
 

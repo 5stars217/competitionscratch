@@ -22,7 +22,7 @@ Common questions, troubleshooting, and solutions for the AI Agent Security Compe
 **A:** The SDK may not be published to PyPI yet. Install from source instead:
 
 ```bash
-git clone https://github.com/yourusername/aicomp-sdk.git
+git clone https://github.com/mbhatt1/competitionscratch.git
 cd aicomp-sdk
 pip install -e .
 ```
@@ -843,8 +843,8 @@ def decide(self, tool_name, tool_args, context):
 
 3. **Community**:
    - Kaggle Discussion Forum
-   - GitHub Issues: [Report bugs](https://github.com/yourusername/aicomp-sdk/issues)
-   - GitHub Discussions: [Ask questions](https://github.com/yourusername/aicomp-sdk/discussions)
+   - GitHub Issues: [Report bugs](https://github.com/mbhatt1/competitionscratch/issues)
+   - GitHub Discussions: [Ask questions](https://github.com/mbhatt1/competitionscratch/discussions)
 
 4. **Contact**:
    - competition@example.com
