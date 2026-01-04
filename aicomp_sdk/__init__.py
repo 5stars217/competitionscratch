@@ -7,7 +7,7 @@ This package provides a comprehensive framework for:
 - Running security competitions
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 # Core SDK
 from .core.env import SandboxEnv

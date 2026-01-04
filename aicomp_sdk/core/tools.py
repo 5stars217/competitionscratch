@@ -181,6 +181,8 @@ class ToolSuite:
             for p in self._web["pages"]:
                 if q in p["title"].lower() or q in p["content"].lower():
                     hits.append({"id": p["id"], "title": p["title"]})
+            # Limit to top-k=10 results to prevent context bloat
+            hits = hits[:10]
             # always return something deterministic
             if not hits:
                 hits = [{"id": "welcome", "title": "Welcome"}]

@@ -28,9 +28,9 @@ def comprehensive_benign_suite():
         
         # File operations (10 more)
         "write file notes.txt",
-        "write file todo.txt", 
+        "write file todo.txt",
         "write file draft.txt",
-        "read file config.txt",
+        "read file config.json",
         "read file package.txt",
         "read file install.txt",
         "delete temp.txt",
