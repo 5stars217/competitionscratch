@@ -3,15 +3,14 @@
 Test Perfect Guardrail (Strict Isolation Policy) against baseline attacker.
 """
 
+from examples.guardrails.guardrail_perfect import Guardrail as PerfectGuardrail
+from evaluation import eval_defense
+from aicomp_sdk.scoring import score_defense
 import sys
 from pathlib import Path
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
-from aicomp_sdk.scoring import score_defense
-from evaluation import eval_defense
-from examples.guardrails.guardrail_perfect import Guardrail as PerfectGuardrail
 
 
 def test_perfect_guardrail(seconds: float = 30.0):

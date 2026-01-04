@@ -6,15 +6,14 @@ This script measures how well the baseline rule-based guardrail
 performs against the baseline Go-Explore attacker.
 """
 
+from evaluation import eval_defense
+from aicomp_sdk.scoring import score_defense
+from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
 import sys
 from pathlib import Path
 
 # Add project root to path for evaluation import
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
-from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as BaselineGuardrail
-from aicomp_sdk.scoring import score_defense
-from evaluation import eval_defense
 
 
 def test_baseline_defense(seconds: float = 30.0):

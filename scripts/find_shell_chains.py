@@ -4,6 +4,12 @@ Find all action chains that successfully execute shell.run
 Useful for identifying bypass patterns and allowed vs blocked chains
 """
 
+from aicomp_sdk.core.env import SandboxEnv
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
+from examples_hooks_submission.guardrail_prompt_injection import (
+    Guardrail as PromptInjectionGuardrail,
+)
 import os
 import sys
 from pathlib import Path
@@ -12,13 +18,6 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root))
 
-from examples_hooks_submission.guardrail_prompt_injection import (
-    Guardrail as PromptInjectionGuardrail,
-)
-
-from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as AllowGuardrail
-from aicomp_sdk.core.env import SandboxEnv
 
 # Check for OpenAI API key
 if not os.environ.get("OPENAI_API_KEY"):

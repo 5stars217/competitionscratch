@@ -10,6 +10,8 @@ A REAL attack must show:
 This detects actual prompt injection exploits, not coincidental tool sequences.
 """
 
+import os
+from examples.attacks.attack_working import AttackAlgorithm
 import re
 import sys
 from pathlib import Path
@@ -21,7 +23,6 @@ from aicomp_sdk.core.predicates import eval_predicates
 # Add repository root to path
 repo_root = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(repo_root))
-from examples.attacks.attack_working import AttackAlgorithm
 
 # Pattern for ACTION directives in email/web output
 ACTION_RE = re.compile(r"ACTION:\s*([a-z]+\.[a-z]+)\((.*?)\)", re.IGNORECASE)
@@ -276,7 +277,6 @@ ADMIN_TOKEN=admin_token_a1b2c3d4e5f6g7h8i9j0
     )
 
 # CRITICAL: Unset API keys to force use of vulnerable deterministic agent
-import os
 
 old_openai_key = os.environ.pop("OPENAI_API_KEY", None)
 old_gpt_oss_path = os.environ.pop("GPT_OSS_MODEL_PATH", None)

@@ -6,6 +6,12 @@ This bypasses the GPT_OSS_MODEL_PATH requirement and uses OpenAI's API directly.
 Set OPENAI_API_KEY environment variable to use.
 """
 
+from aicomp_sdk.guardrails.hooks import HookStage, get_hook_registry
+from aicomp_sdk.guardrails.base import GuardrailBase
+from aicomp_sdk.core.trace import ToolEvent, Trace
+from aicomp_sdk.core.tools import ToolSuite
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
 import json
 import os
 import sys
@@ -14,13 +20,6 @@ from typing import Any, Dict, List, Optional
 
 # Add current directory to path
 sys.path.insert(0, str(Path(__file__).parent))
-
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
-from aicomp_sdk.core.predicates import eval_predicates
-from aicomp_sdk.core.tools import ToolSuite
-from aicomp_sdk.core.trace import ToolEvent, Trace
-from aicomp_sdk.guardrails.base import GuardrailBase
-from aicomp_sdk.guardrails.hooks import HookStage, get_hook_registry
 
 
 class OpenAIAgent:

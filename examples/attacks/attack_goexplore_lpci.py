@@ -3,19 +3,17 @@ Go-Explore + LPCI Hybrid Attack Algorithm
 Combines Go-Explore's exploration strategy with LPCI hooks for amplified effectiveness
 """
 
+from aicomp_sdk.utils.timebox import Timebox
+from aicomp_sdk.guardrails.hooks_simple import attack_hook, clear_hooks
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.core.cells import cell_signature
+from typing import Dict, List
+from dataclasses import dataclass
+import random
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
-import random
-from dataclasses import dataclass
-from typing import Dict, List
-
-from aicomp_sdk.core.cells import cell_signature
-from aicomp_sdk.core.predicates import eval_predicates
-from aicomp_sdk.guardrails.hooks_simple import attack_hook, clear_hooks
-from aicomp_sdk.utils.timebox import Timebox
 
 
 # LPCI Hooks to amplify Go-Explore prompts

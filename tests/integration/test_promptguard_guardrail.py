@@ -6,6 +6,9 @@ NOTE: This test requires access to the gated meta-llama/Prompt-Guard-86M model.
 If you don't have access, the test will be skipped.
 """
 
+from examples.guardrails.guardrail_promptguard import Guardrail as PromptGuardGuardrail
+from evaluation import eval_defense
+from aicomp_sdk.scoring import score_defense
 import sys
 from pathlib import Path
 
@@ -13,10 +16,6 @@ import pytest
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
-from aicomp_sdk.scoring import score_defense
-from evaluation import eval_defense
-from examples.guardrails.guardrail_promptguard import Guardrail as PromptGuardGuardrail
 
 
 def test_promptguard_guardrail(seconds: float = 30.0):

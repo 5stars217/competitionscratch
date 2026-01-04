@@ -419,7 +419,7 @@ class SandboxEnv:
         """Snapshot ToolSuite state (egress, mail, files)."""
         # Snapshot filesystem state recursively
         fs_state = {}
-        
+
         def _capture_tree(base_path: Path, rel_prefix: str = ""):
             """Recursively capture all files and directories."""
             for fpath in base_path.iterdir():
@@ -429,7 +429,7 @@ class SandboxEnv:
                 elif fpath.is_dir():
                     # Recursively capture subdirectory contents
                     _capture_tree(fpath, rel_path + "/")
-        
+
         _capture_tree(self.tools._fs_root)
 
         return {
@@ -452,7 +452,7 @@ class SandboxEnv:
                     shutil.rmtree(fpath)
                 elif fpath.is_file():
                     fpath.unlink()
-        
+
         # Restore filesystem from snapshot
         for rel_path, content in state["fs_state"].items():
             fpath = self.tools._fs_root / rel_path

@@ -5,21 +5,21 @@ Test script for LPCI-enhanced submission examples
 Validates that both attack.py and guardrail.py work correctly
 """
 
+from guardrail import Guardrail
+from attack import AttackAlgorithm
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as RulesGuardrail
+from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
+from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
+from aicomp_sdk import SandboxEnv, get_hook_registry
 import sys
 from pathlib import Path
 
 # Add parent directory to path so we can import aicomp_sdk
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from aicomp_sdk import SandboxEnv, get_hook_registry
-from aicomp_sdk.attacks.baselines.attacker_goexplore import AttackAlgorithm as BaselineAttacker
-from aicomp_sdk.attacks.baselines.guardrail_allow import Guardrail as BaselineGuardrail
-from aicomp_sdk.attacks.baselines.guardrail_rules import Guardrail as RulesGuardrail
-from aicomp_sdk.core.predicates import eval_predicates
 
 # Import our examples
-from attack import AttackAlgorithm
-from guardrail import Guardrail
 
 
 def test_attack_algorithm():

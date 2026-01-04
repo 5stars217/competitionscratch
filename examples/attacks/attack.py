@@ -3,18 +3,16 @@ Go-Explore Attack - Modified to Actually Find Breaches
 Based on baseline but with prompts designed to trigger predicates
 """
 
+from aicomp_sdk.utils.timebox import Timebox
+from aicomp_sdk.core.predicates import eval_predicates
+from aicomp_sdk.core.cells import cell_signature
+from typing import Dict, List
+from dataclasses import dataclass
+import random
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
-import random
-from dataclasses import dataclass
-from typing import Dict, List
-
-from aicomp_sdk.core.cells import cell_signature
-from aicomp_sdk.core.predicates import eval_predicates
-from aicomp_sdk.utils.timebox import Timebox
 
 
 @dataclass

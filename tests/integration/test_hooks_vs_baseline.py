@@ -10,6 +10,7 @@ Shows that hooks amplify attack effectiveness!
 """
 
 # First, import baseline attack
+from examples.attacks.attack_working import AttackAlgorithm
 import sys
 from pathlib import Path
 
@@ -18,7 +19,6 @@ from aicomp_sdk.core.env import SandboxEnv
 from aicomp_sdk.guardrails.hooks_simple import attack_hook, clear_hooks
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from examples.attacks.attack_working import AttackAlgorithm
 
 print("=" * 70)
 print("LPCI HOOKS vs BASELINE COMPARISON")

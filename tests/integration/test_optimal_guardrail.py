@@ -4,15 +4,14 @@ Test Optimal Guardrail against baseline attacker.
 Recent Taint Window (5 ops) + Ultra-Dangerous Target Detection
 """
 
+from examples.guardrails.guardrail_optimal import Guardrail as OptimalGuardrail
+from evaluation import eval_defense
+from aicomp_sdk.scoring import score_defense
 import sys
 from pathlib import Path
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
-from aicomp_sdk.scoring import score_defense
-from evaluation import eval_defense
-from examples.guardrails.guardrail_optimal import Guardrail as OptimalGuardrail
 
 
 def test_optimal_guardrail(seconds: float = 30.0):
