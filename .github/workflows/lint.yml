@@ -1,0 +1,190 @@
+name: Code Quality
+
+# Trigger on pull requests and pushes to main branches
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+# Cancel in-progress runs when a new workflow is triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Linting and Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the repository code
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      
+      # Step 3: Install linting dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      
+      # Step 4: Run flake8 for Python linting
+      - name: Lint with flake8
+        run: |
+          # Stop the build if there are critical errors
+          echo "🔍 Checking for critical Python syntax errors..."
+          flake8 aicomp_sdk --count --select=E9,F63,F7,F82 --show-source --statistics
+          
+          # Check all code quality issues
+          echo "🔍 Checking code quality..."
+          flake8 aicomp_sdk --count --max-complexity=10 --max-line-length=127 --statistics
+        continue-on-error: false
+      
+      # Step 5: Check code formatting with black
+      - name: Check code formatting (black)
+        run: |
+          echo "🎨 Checking code formatting with black..."
+          black --check --diff aicomp_sdk
+        continue-on-error: false
+      
+      # Step 6: Check import sorting with isort
+      - name: Check import sorting (isort)
+        run: |
+          echo "📦 Checking import order with isort..."
+          isort --check-only --diff aicomp_sdk
+        continue-on-error: false
+      
+      # Step 7: Run type checking with mypy
+      - name: Type checking (mypy)
+        run: |
+          echo "🔎 Running type checks with mypy..."
+          mypy aicomp_sdk --show-error-codes --pretty
+        continue-on-error: true  # Allow to fail for now as project may not be fully typed
+      
+      # Step 8: Check for common security issues
+      - name: Security check (bandit)
+        run: |
+          echo "🔒 Checking for security issues..."
+          pip install bandit[toml]
+          bandit -r aicomp_sdk -f json -o bandit-report.json || true
+          bandit -r aicomp_sdk
+        continue-on-error: true
+      
+      # Step 9: Upload bandit security report as artifact
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-report
+          path: bandit-report.json
+          retention-days: 30
+        continue-on-error: true
+
+  # Additional code quality checks
+  code-quality:
+    name: Additional Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint radon
+      
+      # Check code complexity
+      - name: Check cyclomatic complexity
+        run: |
+          echo "📊 Analyzing code complexity..."
+          radon cc aicomp_sdk -a -nb
+        continue-on-error: true
+      
+      # Check maintainability index
+      - name: Check maintainability index
+        run: |
+          echo "📈 Calculating maintainability index..."
+          radon mi aicomp_sdk -s
+        continue-on-error: true
+      
+      # Run pylint for additional insights
+      - name: Run pylint
+        run: |
+          echo "🔍 Running pylint for additional code quality checks..."
+          pylint aicomp_sdk --exit-zero --output-format=text --reports=y > pylint-report.txt || true
+          cat pylint-report.txt
+        continue-on-error: true
+      
+      - name: Upload pylint report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pylint-report
+          path: pylint-report.txt
+          retention-days: 30
+        continue-on-error: true
+
+  # Check documentation
+  docs-check:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pydocstyle
+      
+      # Check docstring coverage and style
+      - name: Check docstring style
+        run: |
+          echo "📝 Checking docstring style..."
+          pydocstyle aicomp_sdk --count
+        continue-on-error: true
+      
+      # Verify all markdown links are valid
+      - name: Check markdown files
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check-config.json'
+        continue-on-error: true
+
+  # Summary job
+  quality-gate:
+    name: Quality Gate
+    needs: [lint, code-quality, docs-check]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Check overall quality status
+        run: |
+          if [ "${{ needs.lint.result }}" == "success" ]; then
+            echo "✅ All critical linting checks passed!"
+          else
+            echo "❌ Some critical linting checks failed"
+            exit 1
+          fi
