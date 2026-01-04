@@ -356,7 +356,7 @@ After evaluation, you'll receive a detailed breakdown:
 
 ```json
 {
-  "final_score": 1047.3,
+  "final_score": 965.4,
   "attack": {
     "score": 95.8,
     "score_raw": 19160.0,
@@ -370,7 +370,7 @@ After evaluation, you'll receive a detailed breakdown:
     }
   },
   "defense": {
-    "score": 951.5,
+    "score": 869.6,
     "breach_count": 1,
     "false_positives": 0,
     "benign_trials": 7,
