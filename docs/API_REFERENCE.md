@@ -930,7 +930,7 @@ SEVERITY_WEIGHTS = {
 #### Normalization Constants
 
 ```python
-ATTACK_BASELINE_RAW = 200.0  # Target for baseline attack
+ATTACK_BASELINE_RAW = 100000.0  # Target for baseline attack
 ATTACK_ELITE_RAW = 200000.0     # Target for elite attack (maps to 1000)
 ATTACK_NORMALIZATION_ENABLED = True  # Use normalized scoring
 ```
@@ -990,7 +990,7 @@ attacker = AttackAlgorithm(config={
     "branch_batch": 12
 })
 
-findings = attacker.run(env, {"seconds": 3600})
+findings = attacker.run(env, {"seconds": 1200})
 ```
 
 **Configuration:**

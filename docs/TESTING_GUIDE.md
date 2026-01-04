@@ -766,7 +766,7 @@ assert breaches == 0
 findings = attack.run(env, {"seconds": 10})
 
 # Avoid: Long running tests slow down development
-findings = attack.run(env, {"seconds": 3600})
+findings = attack.run(env, {"seconds": 1200})
 ```
 
 ### 7. Test One Thing Per Test

@@ -635,8 +635,8 @@ pytest tests/integration/test_perfect_guardrail.py -v -s
 1. **Context window matters**: Wider windows (5+) catch more complex attacks but risk false positives
 2. **Taint tracking is powerful**: Persistent tracking across tool calls detects multi-step attacks
 3. **Test against benign operations**: Always validate with legitimate use cases (see dataflow_comprehensive)
-4. **Multiple strategies work**: Perfect score (1000/1000) can be achieved with different approaches
-5. **Balance is critical**: Zero breaches with zero false positives requires careful tuning
+4. **Multiple strategies work**: High defense scores (800-1000) can be achieved with different approaches
+5. **Balance is critical**: Minimizing breaches while avoiding false positives requires careful tuning
 
 Study the actual test implementations to understand how each strategy is validated and what edge cases they handle.
 

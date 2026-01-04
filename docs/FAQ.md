@@ -388,7 +388,7 @@ python test_my_attack.py  # Shows estimated full score
 import time
 
 def run(self, env, config):
-    max_seconds = config.get("seconds", 3600)
+    max_seconds = config.get("seconds", 1200)
     start_time = time.time()
     findings = []
     
