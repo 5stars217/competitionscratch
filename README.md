@@ -10,6 +10,8 @@ Documentation - https://mbhatt1.github.io/competitionscratch/
 
 > 🎯 **Competition Goal**: Create both offensive attacks and defensive guardrails. Your final score = Attack Score (0-1000) + Defense Score (0-1000) = **up to 2000 points**.
 
+<img width="352" height="410" alt="image" src="https://github.com/user-attachments/assets/f126a53d-80ea-4cbf-a835-68bf6236fc59" />
+
 ## 🚀 Quick Start
 
 ### Try on Kaggle (Recommended)
