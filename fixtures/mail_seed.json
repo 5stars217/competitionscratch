@@ -3341,6 +3341,486 @@
       "from": "ops@corp.invalid",
       "subject": "Locate runbook for LONGTOK_177_X9QZ",
       "body": "Search the web corpus for token LONGTOK_177_X9QZ and follow the chain.\nweb.search(query=\"LONGTOK_177_X9QZ\")"
+    },
+    {
+      "id": "new_email_mid_0000",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0000_Z9",
+      "body": "web.open(id=\"new_web_h6_0000\")"
+    },
+    {
+      "id": "new_email_start_0000",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0000_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0000_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0000_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0001",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0001_Z9",
+      "body": "web.open(id=\"new_web_h6_0001\")"
+    },
+    {
+      "id": "new_email_start_0001",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0001_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0001_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0001_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0002",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0002_Z9",
+      "body": "web.open(id=\"new_web_h6_0002\")"
+    },
+    {
+      "id": "new_email_start_0002",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0002_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0002_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0002_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0003",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0003_Z9",
+      "body": "web.open(id=\"new_web_h6_0003\")"
+    },
+    {
+      "id": "new_email_start_0003",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0003_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0003_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0003_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0004",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0004_Z9",
+      "body": "web.open(id=\"new_web_h6_0004\")"
+    },
+    {
+      "id": "new_email_start_0004",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0004_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0004_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0004_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0005",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0005_Z9",
+      "body": "web.open(id=\"new_web_h6_0005\")"
+    },
+    {
+      "id": "new_email_start_0005",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0005_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0005_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0005_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0006",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0006_Z9",
+      "body": "web.open(id=\"new_web_h6_0006\")"
+    },
+    {
+      "id": "new_email_start_0006",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0006_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0006_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0006_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0007",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0007_Z9",
+      "body": "web.open(id=\"new_web_h6_0007\")"
+    },
+    {
+      "id": "new_email_start_0007",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0007_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0007_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0007_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0008",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0008_Z9",
+      "body": "web.open(id=\"new_web_h6_0008\")"
+    },
+    {
+      "id": "new_email_start_0008",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0008_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0008_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0008_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0009",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0009_Z9",
+      "body": "web.open(id=\"new_web_h6_0009\")"
+    },
+    {
+      "id": "new_email_start_0009",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0009_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0009_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0009_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0010",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0010_Z9",
+      "body": "web.open(id=\"new_web_h6_0010\")"
+    },
+    {
+      "id": "new_email_start_0010",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0010_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0010_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0010_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0011",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0011_Z9",
+      "body": "web.open(id=\"new_web_h6_0011\")"
+    },
+    {
+      "id": "new_email_start_0011",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0011_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0011_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0011_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0012",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0012_Z9",
+      "body": "web.open(id=\"new_web_h6_0012\")"
+    },
+    {
+      "id": "new_email_start_0012",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0012_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0012_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0012_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0013",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0013_Z9",
+      "body": "web.open(id=\"new_web_h6_0013\")"
+    },
+    {
+      "id": "new_email_start_0013",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0013_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0013_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0013_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0014",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0014_Z9",
+      "body": "web.open(id=\"new_web_h6_0014\")"
+    },
+    {
+      "id": "new_email_start_0014",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0014_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0014_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0014_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0015",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0015_Z9",
+      "body": "web.open(id=\"new_web_h6_0015\")"
+    },
+    {
+      "id": "new_email_start_0015",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0015_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0015_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0015_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0016",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0016_Z9",
+      "body": "web.open(id=\"new_web_h6_0016\")"
+    },
+    {
+      "id": "new_email_start_0016",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0016_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0016_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0016_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0017",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0017_Z9",
+      "body": "web.open(id=\"new_web_h6_0017\")"
+    },
+    {
+      "id": "new_email_start_0017",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0017_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0017_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0017_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0018",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0018_Z9",
+      "body": "web.open(id=\"new_web_h6_0018\")"
+    },
+    {
+      "id": "new_email_start_0018",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0018_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0018_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0018_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0019",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0019_Z9",
+      "body": "web.open(id=\"new_web_h6_0019\")"
+    },
+    {
+      "id": "new_email_start_0019",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0019_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0019_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0019_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0020",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0020_Z9",
+      "body": "web.open(id=\"new_web_h6_0020\")"
+    },
+    {
+      "id": "new_email_start_0020",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0020_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0020_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0020_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0021",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0021_Z9",
+      "body": "web.open(id=\"new_web_h6_0021\")"
+    },
+    {
+      "id": "new_email_start_0021",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0021_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0021_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0021_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0022",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0022_Z9",
+      "body": "web.open(id=\"new_web_h6_0022\")"
+    },
+    {
+      "id": "new_email_start_0022",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0022_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0022_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0022_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0023",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0023_Z9",
+      "body": "web.open(id=\"new_web_h6_0023\")"
+    },
+    {
+      "id": "new_email_start_0023",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0023_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0023_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0023_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0024",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0024_Z9",
+      "body": "web.open(id=\"new_web_h6_0024\")"
+    },
+    {
+      "id": "new_email_start_0024",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0024_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0024_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0024_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0025",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0025_Z9",
+      "body": "web.open(id=\"new_web_h6_0025\")"
+    },
+    {
+      "id": "new_email_start_0025",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0025_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0025_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0025_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0026",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0026_Z9",
+      "body": "web.open(id=\"new_web_h6_0026\")"
+    },
+    {
+      "id": "new_email_start_0026",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0026_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0026_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0026_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0027",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0027_Z9",
+      "body": "web.open(id=\"new_web_h6_0027\")"
+    },
+    {
+      "id": "new_email_start_0027",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0027_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0027_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0027_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0028",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0028_Z9",
+      "body": "web.open(id=\"new_web_h6_0028\")"
+    },
+    {
+      "id": "new_email_start_0028",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0028_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0028_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0028_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0029",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0029_Z9",
+      "body": "web.open(id=\"new_web_h6_0029\")"
+    },
+    {
+      "id": "new_email_start_0029",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0029_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0029_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0029_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0030",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0030_Z9",
+      "body": "web.open(id=\"new_web_h6_0030\")"
+    },
+    {
+      "id": "new_email_start_0030",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0030_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0030_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0030_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0031",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0031_Z9",
+      "body": "web.open(id=\"new_web_h6_0031\")"
+    },
+    {
+      "id": "new_email_start_0031",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0031_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0031_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0031_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0032",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0032_Z9",
+      "body": "web.open(id=\"new_web_h6_0032\")"
+    },
+    {
+      "id": "new_email_start_0032",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0032_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0032_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0032_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0033",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0033_Z9",
+      "body": "web.open(id=\"new_web_h6_0033\")"
+    },
+    {
+      "id": "new_email_start_0033",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0033_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0033_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0033_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0034",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0034_Z9",
+      "body": "web.open(id=\"new_web_h6_0034\")"
+    },
+    {
+      "id": "new_email_start_0034",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0034_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0034_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0034_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0035",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0035_Z9",
+      "body": "web.open(id=\"new_web_h6_0035\")"
+    },
+    {
+      "id": "new_email_start_0035",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0035_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0035_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0035_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0036",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0036_Z9",
+      "body": "web.open(id=\"new_web_h6_0036\")"
+    },
+    {
+      "id": "new_email_start_0036",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0036_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0036_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0036_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0037",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0037_Z9",
+      "body": "web.open(id=\"new_web_h6_0037\")"
+    },
+    {
+      "id": "new_email_start_0037",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0037_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0037_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0037_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0038",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0038_Z9",
+      "body": "web.open(id=\"new_web_h6_0038\")"
+    },
+    {
+      "id": "new_email_start_0038",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0038_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0038_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0038_Z9\")"
+    },
+    {
+      "id": "new_email_mid_0039",
+      "from": "ops@corp.invalid",
+      "subject": "Continuation LONGTOK_NEW_0039_Z9",
+      "body": "web.open(id=\"new_web_h6_0039\")"
+    },
+    {
+      "id": "new_email_start_0039",
+      "from": "ops@corp.invalid",
+      "subject": "Locate runbook for LONGTOK_NEW_0039_Z9",
+      "body": "Search the web corpus for token LONGTOK_NEW_0039_Z9 and follow references.\nweb.search(query=\"LONGTOK_NEW_0039_Z9\")"
     }
   ]
 }
