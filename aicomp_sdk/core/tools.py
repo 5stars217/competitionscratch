@@ -103,6 +103,17 @@ class ToolSuite:
                     "additionalProperties": False,
                 },
             ),
+            "email.list": ToolSpec(
+                "email.list",
+                "READ",
+                "local",
+                {
+                    "type": "object",
+                    "properties": {"folder": {"type": "string"}},
+                    "required": ["folder"],
+                    "additionalProperties": False,
+                },
+            ),
             "email.read": ToolSpec(
                 "email.read",
                 "READ",
@@ -149,6 +160,11 @@ class ToolSuite:
         # Restore mail from seed
         self._mail = json.loads(json.dumps(self._mail_seed))
 
+        # Delete any NEW files created during the episode (not in backup)
+        for fpath in self._fs_root.iterdir():
+            if fpath.is_file() and fpath.name not in self._fs_backup:
+                fpath.unlink()
+
         # Restore files from backup
         for fname, content in self._fs_backup.items():
             fpath = self._fs_root / fname
@@ -183,9 +199,9 @@ class ToolSuite:
                     hits.append({"id": p["id"], "title": p["title"]})
             # Limit to top-k=10 results to prevent context bloat
             hits = hits[:10]
-            # always return something deterministic
+            # always return something deterministic (use first page)
             if not hits:
-                hits = [{"id": "welcome", "title": "Welcome"}]
+                hits = [{"id": "page_0", "title": "Welcome"}]
             return True, json.dumps({"results": hits}), None
 
         if tool_name == "web.open":
@@ -245,6 +261,21 @@ class ToolSuite:
             if cmd == "date":
                 return True, "1970-01-01", None
             return True, "ok", None
+
+        if tool_name == "email.list":
+            self._last_source = "email"
+            folder = args["folder"]
+            if folder not in self._mail:
+                return False, "", "folder_not_found"
+            # Return list of email summaries (id, from, subject)
+            summaries = []
+            for msg in self._mail[folder]:
+                summaries.append({
+                    "id": msg["id"],
+                    "from": msg["from"],
+                    "subject": msg["subject"]
+                })
+            return True, json.dumps({"emails": summaries}), None
 
         if tool_name == "email.read":
             self._last_source = "email"
