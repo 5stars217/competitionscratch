@@ -158,27 +158,27 @@ The **baseline attack** runs against your guardrail for up to 1200 seconds.
 | Balanced Approach | 250 | 800 | **1050** |
 | Elite Submission | 500 | 950 | **1450** |
 
-**See [SCORING.md](docs/SCORING.md) for detailed formulas and examples.**
+**See [SCORING.md](SCORING.md) for detailed formulas and examples.**
 
 ## 📚 Documentation
 
 ### 🎓 Getting Started
-- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Complete zero-to-submission tutorial (75 minutes)
-- **[Competition Rules](docs/COMPETITION_RULES.md)** - Official rules, submission format, and constraints
+- **[Getting Started Guide](GETTING_STARTED.md)** - Complete zero-to-submission tutorial (75 minutes)
+- **[Competition Rules](COMPETITION_RULES.md)** - Official rules, submission format, and constraints
 
 ### 📖 Core Guides
-- **[Guardrails Guide](docs/GUARDRAILS_GUIDE.md)** - Build defensive guardrails
-- **[Attacks Guide](docs/ATTACKS_GUIDE.md)** - Build attack algorithms
-- **[API Reference](docs/API_REFERENCE.md)** - Complete SDK documentation
+- **[Guardrails Guide](GUARDRAILS_GUIDE.md)** - Build defensive guardrails
+- **[Attacks Guide](ATTACKS_GUIDE.md)** - Build attack algorithms
+- **[API Reference](API_REFERENCE.md)** - Complete SDK documentation
 
 ### 🔍 Deep Dives
-- **[Scoring System](docs/SCORING.md)** - Detailed scoring formulas and optimization strategies
-- **[FAQ & Troubleshooting](docs/FAQ.md)** - Common issues and solutions
+- **[Scoring System](SCORING.md)** - Detailed scoring formulas and optimization strategies
+- **[FAQ & Troubleshooting](FAQ.md)** - Common issues and solutions
 
 ### 💡 Examples
-- **[Example Submissions](examples/README.md)** - Complete working examples
-- **[Guardrail Examples](examples/GUARDRAILS_EXAMPLES.md)** - Annotated defense examples
-- **[Attack Examples](examples/ATTACKS_EXAMPLES.md)** - Annotated attack examples
+- **[Example Submissions](../examples/README.md)** - Complete working examples
+- **[Guardrail Examples](../examples/GUARDRAILS_EXAMPLES.md)** - Annotated defense examples
+- **[Attack Examples](../examples/ATTACKS_EXAMPLES.md)** - Annotated attack examples
 
 ## 🎯 Competition Scenarios
 
