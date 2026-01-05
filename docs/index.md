@@ -4,7 +4,7 @@ layout: home
 hero:
   name: JED
   text: Systems-Security Benchmark for Tool-Using AI Agents
-  tagline: A dual-track security competition where you build both attack algorithms and defensive guardrails to test "source → sink" security for AI agents
+  tagline: A dual-track security competition where you build both attack algorithms and defensive guardrails to test "source → sink" security for AI agents. Goal for attacker is to induce "imapctful" flows, and for the defender is to block them. 
   image:
     src: /logo.svg
     alt: JED Framework
