@@ -18,11 +18,20 @@ Official rules and regulations for the AI Agent Security Competition.
 
 ## Competition Objective
 
-### Goal
+### Overview
 
-Build **both**:
-1. An **attack algorithm** that discovers vulnerabilities in AI agent systems
-2. A **defensive guardrail** that protects AI agents from malicious inputs
+JED is a systems-security benchmark for tool-using AI agents. Competitors submit two components:
+
+1. **An attacker**: An automated search algorithm that drives an agent+tool sandbox to produce provable unsafe side effects (data exfiltration, unsafe actions triggered by untrusted content, destructive writes, confused-deputy sends)
+2. **A defender**: A guardrail policy that gates tool calls in real time with minimal false positives
+
+### Security Model
+
+This is **"source → sink" security for agents**:
+- **Sources**: Untrusted inputs (web content, email)
+- **Sinks**: Side-effectful tools (EXEC, WRITE, SHARE)
+- **Attack goal**: Induce forbidden flows from sources to sinks
+- **Defense goal**: Block forbidden flows without breaking safe workflows
 
 ### Evaluation Format
 
