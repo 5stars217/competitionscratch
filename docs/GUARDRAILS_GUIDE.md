@@ -116,7 +116,7 @@ def decide(self, tool_name, tool_args, context):
     return Decision.allow()
 ```
 
-**When to use**: Operation is safe and should proceed.
+**When to use**: Operation is safe and proceeds.
 
 #### 2. DENY - Block completely
 
@@ -144,7 +144,7 @@ def decide(self, tool_name, tool_args, context):
     return Decision.allow()
 ```
 
-**When to use**: Operation might be legitimate but needs human oversight.
+**When to use**: Operation requires human oversight before execution.
 
 **Result**: In competition, CONFIRM is treated the same as DENY (counts as blocked).
 
@@ -166,7 +166,7 @@ def decide(self, tool_name, tool_args, context):
     return Decision.allow()
 ```
 
-**When to use**: Operation can be made safe by modifying its parameters.
+**When to use**: Operation requires parameter modification to be safe.
 
 **Result**: Tool executes with your modified arguments instead.
 
@@ -289,7 +289,7 @@ class Guardrail(GuardrailBase):
 ```
 
 **Pros**: Catches known attack signatures
-**Cons**: Can be bypassed with encoding/obfuscation, may have false positives
+**Cons**: Bypassed with encoding/obfuscation, generates false positives
 
 ### Pattern 4: URL Validation
 

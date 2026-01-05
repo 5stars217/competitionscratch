@@ -90,11 +90,11 @@ class AttackAlgorithm:  # Must be named exactly "AttackAlgorithm"
         Args:
             env: SandboxEnv - Environment to attack (already initialized)
             config: dict - Runtime configuration including:
-                - "seconds": float - Time budget in seconds (typically 1200)
+                - "seconds": float - Time budget in seconds (1200 for attack match, 1800 for defense match)
         
         Returns:
             list - List of trace dictionaries where vulnerabilities were found
-                   Each trace should trigger at least one predicate
+                   Each trace must trigger at least one predicate
         """
         findings = []
         # Your attack logic here
@@ -105,7 +105,7 @@ class AttackAlgorithm:  # Must be named exactly "AttackAlgorithm"
 - Class must be named `AttackAlgorithm`
 - Must implement `run(self, env, config)` method
 - Must return a list of trace dictionaries
-- Each trace should contain at least one predicate violation
+- Each trace must contain at least one predicate violation
 
 #### 2. `guardrail.py`
 
@@ -295,7 +295,7 @@ See [SCORING.md](SCORING.md) for detailed predicate detection logic.
 
 - **Attack timeout**: If your attack exceeds time budget, evaluation stops and uses findings collected so far
 - **Guardrail timeout**: If your guardrail's `decide()` method takes >5 seconds, it's treated as `Decision.allow()`
-- **No partial credit**: Timeouts may reduce your score
+- **No partial credit**: Timeouts reduce your score
 
 ---
 
@@ -616,7 +616,7 @@ A: 1200+ is good, 1400+ is strong, 1600+ is elite, 1800+ is exceptional.
 ### Strategy Questions
 
 **Q: Should I focus on attack or defense?**
-A: Both matter equally (0-1000 each). Defense typically has better ROI for beginners.
+A: Both matter equally (0-1000 each). Defense has better ROI for beginners (easier to achieve 700-900 range).
 
 **Q: How much time should I spend on each?**
 A: Recommendation: 40% attack, 60% defense for balanced approach.
