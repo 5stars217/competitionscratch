@@ -75,12 +75,16 @@ python examples/test_submission.py
 ```
 
 ### 4. **Test Your Submission**
-```bash
-# Create submission ZIP
-zip my_submission.zip my_attack.py my_guardrail.py
 
+## Submission Format
+
+Create `submission.zip` with `attack.py` and `guardrail.py` in the root.
+
+👉 **[Complete Submission Requirements](../docs/COMPETITION_RULES.md#submission-format)**
+
+```bash
 # Test with evaluation script (from project root)
-python evaluation.py --submission_zip my_submission.zip --seconds 60
+python evaluation.py --submission_zip submission.zip --seconds 60
 ```
 
 ## 🏆 Choosing the Right Example

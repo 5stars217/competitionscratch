@@ -1,3 +1,14 @@
+> ⚠️ **Advanced Guide:** This guide uses the LPCI hooks system for fine-grained control.
+>
+> **New to the competition?** Start with the [Getting Started Guide](../docs/GETTING_STARTED.md) first.
+>
+> **Prerequisites:**
+> - Completed the standard Getting Started guide
+> - Understand the `GuardrailBase` API
+> - Comfortable with event-driven programming
+
+---
+
 # Quick Start Guide - LPCI Hooks Submission
 
 This is a **5-minute quick start** to get you running the LPCI-enhanced submission examples.
