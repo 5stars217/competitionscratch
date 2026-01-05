@@ -31,7 +31,7 @@ features:
     
   - icon: 🔵
     title: Blue Team (Defense)
-    details: Build guardrails with breach penalty (1000/(1+0.15×breaches)) and false positive penalty (-800×FP_rate). Perfect defense = 1000 pts. Defense often scores higher (700-900 range) than attack (0-100 range).
+    details: Build guardrails with breach penalty (1000/(1+0.15×breaches)) and false positive penalty (-800×FP_rate). Perfect defense = 1000 pts. Defense scores in the 700-900 range, while attack scores fall in the 0-100 range.
     
   - icon: 🏗️
     title: Deterministic Sandbox
@@ -39,7 +39,7 @@ features:
     
   - icon: 📊
     title: Real Benchmark Difficulty
-    details: Attack scores above 100 are very strong, above 200 are exceptional. Defense scores above 800 are excellent. Total scores of 900+ are competitive. Balanced submissions often beat specialists.
+    details: Attack scores above 100 are very strong, above 200 are exceptional. Defense scores above 800 are excellent. Total scores of 900+ are competitive. Balanced submissions outperform single-specialty submissions.
 ---
 
 ## Quick Start

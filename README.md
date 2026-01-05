@@ -215,9 +215,9 @@ final_score = max(0, base_score - fp_penalty)
 **Total** = Attack Score + Defense Score (max 2000 points)
 
 **Strategy Insights**:
-- Defense is often easier to score high on (700-900 range is achievable)
-- Attack scores are typically much lower (0-100 range is normal)
-- Balanced submissions (e.g., 50 attack + 850 defense = 900 total) can beat specialist submissions
+- Defense scores in the 700-900 range; attack scores in the 0-100 range
+- The defense scoring curve favors breach prevention over attack diversity
+- Balanced submissions (e.g., 50 attack + 850 defense = 900 total) outperform single-specialty submissions
 
 See **[SCORING.md](docs/SCORING.md)** for detailed formulas, worked examples, and optimization strategies.
 
