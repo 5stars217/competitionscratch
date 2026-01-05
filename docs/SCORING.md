@@ -1,5 +1,11 @@
 # Scoring System
 
+> 📊 **Reality Check:** Most attacks score 0-50 points against the Optimal Guardrail (taint-tracking defense).
+> This is normal - sophisticated defenses are difficult to break. Scores above 100 are very strong, above 200 are exceptional.
+> Don't be discouraged by low initial scores!
+
+---
+
 Complete guide to understanding how your submission is scored in the AI Agent Security Competition.
 
 ## Table of Contents

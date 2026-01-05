@@ -739,57 +739,20 @@ See [FAQ.md](FAQ.md) for more troubleshooting.
 
 ### Running Tests
 
-The SDK includes a comprehensive test suite to help you validate your implementations and understand framework behavior:
-
-#### Running All Tests
+The SDK includes a comprehensive test suite to validate your implementations:
 
 ```bash
-# Run complete test suite (14 integration + 8 unit tests)
-pytest tests/
-
-# Run with verbose output
+# Run complete test suite (22 tests)
 pytest tests/ -v
 
 # Run specific test categories
-pytest tests/integration/  # Integration tests only
-pytest tests/unit/         # Unit tests only
+pytest tests/integration/  # Integration tests (14 tests)
+pytest tests/unit/         # Unit tests (8 tests)
 ```
 
-#### Test Suite Overview
+For comprehensive testing documentation including all test types, fixtures, and debugging strategies:
 
-The SDK includes **22 tests** covering core functionality:
-
-**Integration Tests (14 tests)** - Real-world scenarios with the full framework:
-- **Guardrail tests (8)**: [`test_perfect_guardrail.py`](../tests/integration/test_perfect_guardrail.py), [`test_optimal_guardrail.py`](../tests/integration/test_optimal_guardrail.py), [`test_taint_tracking_guardrail.py`](../tests/integration/test_taint_tracking_guardrail.py), [`test_dataflow_guardrail.py`](../tests/integration/test_dataflow_guardrail.py), [`test_dataflow_comprehensive.py`](../tests/integration/test_dataflow_comprehensive.py), [`test_promptguard_guardrail.py`](../tests/integration/test_promptguard_guardrail.py), [`test_prompt_injection_guardrail.py`](../tests/integration/test_prompt_injection_guardrail.py), [`test_baseline_defense.py`](../tests/integration/test_baseline_defense.py)
-- **Attack tests (5)**: [`test_baseline_performance.py`](../tests/integration/test_baseline_performance.py), [`test_verify_findings.py`](../tests/integration/test_verify_findings.py), [`test_goexplore_openai.py`](../tests/integration/test_goexplore_openai.py), [`test_hooks_vs_baseline.py`](../tests/integration/test_hooks_vs_baseline.py), [`test_minimal_breach.py`](../tests/integration/test_minimal_breach.py)
-- **Scoring test (1)**: [`test_scoring_balance.py`](../tests/integration/test_scoring_balance.py)
-
-**Unit Tests (8 tests)** - Core SDK components:
-- [`test_cells.py`](../tests/unit/test_cells.py), [`test_env.py`](../tests/unit/test_env.py), [`test_predicates.py`](../tests/unit/test_predicates.py), [`test_replay.py`](../tests/unit/test_replay.py), [`test_scoring.py`](../tests/unit/test_scoring.py), [`test_tools.py`](../tests/unit/test_tools.py), [`test_trace.py`](../tests/unit/test_trace.py), [`test_base_guardrails.py`](../tests/unit/test_base_guardrails.py)
-
-#### Test Data and Fixtures
-
-The `fixtures/` directory contains **3,211 prompt injection examples** (50.9x increase from original 63):
-- `mail_seed.json` - Email scenarios with prompt injection attempts
-- `web_corpus.json` - Web content with malicious payloads
-- `file_seed/*.txt` - File system content for testing
-
-These fixtures power the test suite and provide realistic attack scenarios.
-
-#### Running Specific Test Examples
-
-```bash
-# Test a specific guardrail strategy
-pytest tests/integration/test_perfect_guardrail.py -v
-
-# Test attack performance
-pytest tests/integration/test_baseline_performance.py -v
-
-# Test scoring calculations
-pytest tests/integration/test_scoring_balance.py -v
-```
-
-See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing documentation.
+👉 **[Complete Testing Guide](TESTING_GUIDE.md)**
 
 ### Submitting to Kaggle
 
@@ -798,6 +761,23 @@ See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing documentation
 3. **Check the leaderboard** - See how you rank
 4. **Download score breakdown** - Analyze what to improve
 5. **Iterate and resubmit** - No limit on submissions during competition
+
+---
+
+## 7. Advanced: LPCI Hooks System (Optional)
+
+For advanced users, the SDK provides an alternative LPCI (Language-based Persistent Code Injection) hooks system.
+
+**When to use:**
+- You need fine-grained control over tool inputs/outputs
+- You want to inject payloads into the environment
+- You're comfortable with event-driven programming
+
+**Getting started with LPCI:**
+- [LPCI Quick Start Guide](../examples/QUICK_START.md)
+- [LPCI Examples](../examples/README.md)
+
+**For beginners:** Stick with the `GuardrailBase` standard API shown in this guide.
 
 ---
 

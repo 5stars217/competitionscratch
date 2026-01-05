@@ -1,18 +1,31 @@
-# JED: AI Agent Security Competition
+# JED Competition Documentation
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## 🎯 Start Here
 
-**Welcome to JED (Jailbreak, Exploit, Defend)!** The comprehensive framework for AI agent security competition. Build attack algorithms to breach AI agent defenses and defensive guardrails to protect against attacks. Submit both and compete for the top of the leaderboard.
+**New to the competition?**
+- **[Getting Started Guide (75 min)](GETTING_STARTED.md)** - Zero to your first submission
+- **[Competition Rules](COMPETITION_RULES.md)** - Official requirements and submission format
 
-## 🎯 What You'll Build
+## 📚 Core Guides
 
-In this competition, you'll create:
+- **[Scoring System](SCORING.md)** - How points are awarded (attack + defense)
+- **[Guardrails Guide](GUARDRAILS_GUIDE.md)** - Build robust defenses
+- **[Attacks Guide](ATTACKS_GUIDE.md)** - Develop effective attacks
 
-1. **An Attack Algorithm** - Discover vulnerabilities in AI agents by crafting prompts that bypass security guardrails
-2. **A Defensive Guardrail** - Protect AI agents from malicious prompts while allowing benign operations
+## 🔧 Reference & Tools
 
-**Your final score** = Attack Score (0-1000) + Defense Score (0-1000) = **0-2000 points**
+- **[API Reference](API_REFERENCE.md)** - Complete SDK documentation
+- **[Testing Guide](TESTING_GUIDE.md)** - Testing strategies and debugging
+- **[FAQ](FAQ.md)** - Common questions answered
+
+## 💡 Examples & Code
+
+- **[Examples Directory](../examples/README.md)** - Working attack and guardrail implementations
+- **[Quick Start (Advanced)](../examples/QUICK_START.md)** - LPCI hooks system
+
+---
+
+**Competition Support:** For questions, issues, or discussions, visit [GitHub Issues](https://github.com/mbhatt1/competitionscratch/issues)
 
 ## 🚀 Quick Start (5 Minutes)
 
